@@ -105,69 +105,22 @@ export default function ContactoPage() {
       <Breadcrumbs items={breadcrumbItems} />
 
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-          <div className="absolute top-0 left-0 w-full h-full">
-            <div className="absolute -top-40 -right-40 w-80 h-80 bg-white bg-opacity-10 rounded-full"></div>
-            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-white bg-opacity-10 rounded-full"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white bg-opacity-5 rounded-full"></div>
-          </div>
+      <section className="relative py-16 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden">
+        <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <AnimatedSection>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">Contáctanos</h1>
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+              Estamos aquí para ayudarte con todas tus necesidades inmobiliarias. Múltiples canales de atención para
+                  brindarte el mejor servicio personalizado.
+            </p>
+          </AnimatedSection>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <AnimatedSection animation="fade-left">
-              <div className="text-center lg:text-left">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">Contáctanos</h1>
-                <p className="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
-                  Estamos aquí para ayudarte con todas tus necesidades inmobiliarias. Múltiples canales de atención para
-                  brindarte el mejor servicio personalizado.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                  <a href="#contacto-directo" className="btn-primary">
-                    Contacto Inmediato
-                  </a>
-                  <a
-                    href="https://wa.me/56987654321"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-white bg-opacity-20 border-2 border-white text-white hover:bg-white hover:text-blue-600 font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent transform hover:scale-105"
-                  >
-                    <span className="mr-2">💬</span>
-                    WhatsApp
-                  </a>
-                </div>
-              </div>
-            </AnimatedSection>
-
-            <AnimatedSection animation="fade-right" delay={200}>
-              <div className="relative">
-                <div className="relative h-80 lg:h-96 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
-                  <Image
-                    src="/placeholder.svg?height=500&width=600&text=Oficina+Contacto"
-                    alt="Oficina de Contacto"
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/30 to-transparent"></div>
-                </div>
-                {/* Floating badge */}
-                <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-xl">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                      <MessageCircle className="h-6 w-6 text-green-600" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-bold text-gray-900">Respuesta</div>
-                      <div className="text-xs text-gray-600">En 24 horas</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </AnimatedSection>
-          </div>
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-white bg-opacity-10 rounded-full"></div>
+          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-white bg-opacity-10 rounded-full"></div>
         </div>
       </section>
 
@@ -327,43 +280,6 @@ export default function ContactoPage() {
               <p className="text-gray-600 mb-6">¿No encuentras la respuesta que buscas?</p>
               <a href="tel:+56223456789" className="btn-primary">
                 Llámanos Directamente
-              </a>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* CTA de Contacto Rápido */}
-      <section className="py-20 bg-gray-900 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <AnimatedSection>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">¿Necesitas Atención Inmediata?</h2>
-            <p className="text-xl text-gray-300 mb-8">
-              Nuestro equipo está disponible para atenderte por los canales más rápidos
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <a
-                href="tel:+56223456789"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 transform hover:scale-105 flex items-center justify-center"
-              >
-                <Phone className="h-5 w-5 mr-2" />
-                Llamar Ahora
-              </a>
-              <a
-                href="https://wa.me/56987654321"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-green-600 hover:bg-green-700 text-white font-medium py-4 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transform hover:scale-105 flex items-center justify-center"
-              >
-                <MessageCircle className="h-5 w-5 mr-2" />
-                WhatsApp
-              </a>
-              <a
-                href="mailto:info@viviendachile.cl"
-                className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-4 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900 transform hover:scale-105 flex items-center justify-center"
-              >
-                <Mail className="h-5 w-5 mr-2" />
-                Email
               </a>
             </div>
           </AnimatedSection>
