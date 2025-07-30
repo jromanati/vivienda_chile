@@ -1,0 +1,232 @@
+import type { Property, Service, Testimonial } from "@/types"
+
+export const properties: Property[] = [
+  {
+    id: "1",
+    title: "Casa Moderna en Las Condes",
+    description:
+      "Hermosa casa moderna de 3 pisos con acabados de lujo, jardín privado y vista panorámica a la cordillera.",
+    price: 450000000,
+    location: "Las Condes, Santiago",
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 280,
+    type: "casa",
+    status: "venta",
+    images: [
+      "/images/propiedades/las_condes.jpg?height=400&width=600",
+      "/images/propiedades/las_condes2.png?height=400&width=600",
+    ],
+    videos: [
+      "/videos/propiedades/video_condes.mp4?height=600&width=800&text=Video+Tour+Casa",
+    ],
+    features: ["Jardín privado", "Vista a la cordillera", "Cocina equipada", "Estacionamiento 2 autos"],
+    createdAt: "2024-01-15",
+  },
+  {
+    id: "2",
+    title: "Departamento Premium Reñaca",
+    description:
+      "Exclusivo departamento en el corazón de Reñaca con todas las comodidades y excelente conectividad.",
+    price: 3200000,
+    location: "Providencia, Santiago",
+    bedrooms: 2,
+    bathrooms: 2,
+    area: 85,
+    type: "departamento",
+    status: "arriendo",
+    images: [
+      "/images/propiedades/re_aca.jpg?height=400&width=600",
+    ],
+    videos: [
+      "/placeholder.svg?height=600&width=800&text=Video+Recorrido+Depto"
+    ],
+    features: ["Gimnasio", "Piscina", "Seguridad 24/7", "Terraza"],
+    createdAt: "2024-01-10",
+  },
+  {
+    id: "3",
+    title: "Casa Familiar en Ñuñoa",
+    description: "Acogedora casa familiar con amplio patio, perfecta para familias que buscan tranquilidad y espacio.",
+    price: 280000000,
+    location: "Ñuñoa, Santiago",
+    bedrooms: 3,
+    bathrooms: 2,
+    area: 150,
+    type: "casa",
+    status: "venta",
+    images: [
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+    ],
+    features: ["Patio amplio", "Quincho", "Bodega", "Cerca de colegios"],
+    createdAt: "2024-01-08",
+  },
+  {
+    id: "4",
+    title: "Oficina Corporativa Centro",
+    description: "Moderna oficina en el centro financiero de Santiago, ideal para empresas en crecimiento.",
+    price: 2800000,
+    location: "Santiago Centro",
+    bedrooms: 0,
+    bathrooms: 2,
+    area: 120,
+    type: "oficina",
+    status: "arriendo",
+    images: [
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+    ],
+    features: ["Aire acondicionado", "Sala de reuniones", "Recepción", "Estacionamiento"],
+    createdAt: "2024-01-05",
+  },
+  {
+    id: "5",
+    title: "Penthouse Vitacura",
+    description: "Exclusivo penthouse con terraza panorámica y acabados de primera calidad en el sector más exclusivo.",
+    price: 850000000,
+    location: "Vitacura, Santiago",
+    bedrooms: 3,
+    bathrooms: 3,
+    area: 200,
+    type: "departamento",
+    status: "venta",
+    images: [
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+    ],
+    features: ["Terraza panorámica", "Jacuzzi", "Bodega de vinos", "Conserje"],
+    createdAt: "2024-01-03",
+  },
+  {
+    id: "6",
+    title: "Casa de Playa Viña del Mar",
+    description: "Hermosa casa frente al mar con acceso directo a la playa y vista espectacular al océano.",
+    price: 520000000,
+    location: "Viña del Mar, Valparaíso",
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 220,
+    type: "casa",
+    status: "venta",
+    images: [
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+      "/placeholder.svg?height=400&width=600",
+    ],
+    features: ["Frente al mar", "Acceso directo playa", "Terraza con vista", "Quincho"],
+    createdAt: "2024-01-01",
+  },
+]
+
+export const services: Service[] = [
+  {
+    id: "asesoria-compra",
+    title: "Asesoría en Compra",
+    description:
+      "Te acompañamos en todo el proceso de compra de tu propiedad, desde la búsqueda hasta la escrituración. Nuestro equipo de expertos te guiará paso a paso para que tomes la mejor decisión de inversión. Analizamos el mercado, evaluamos propiedades y negociamos el mejor precio para ti.",
+    shortDescription: "Acompañamiento completo en la compra de propiedades",
+    icon: "🏠",
+    features: [
+      "Búsqueda personalizada según tus necesidades",
+      "Evaluación técnica y legal de propiedades",
+      "Negociación profesional del precio",
+      "Gestión completa de documentación legal",
+      "Acompañamiento en la escrituración",
+      "Asesoría en financiamiento hipotecario",
+      "Inspección técnica de la propiedad",
+      "Análisis de plusvalía y proyección de valor",
+    ],
+    image: "/images/servicios/asesoria_en_compra.png?height=400&width=600",
+  },
+  {
+    id: "asesoria-venta",
+    title: "Asesoría en Venta",
+    description:
+      "Maximizamos el valor de tu propiedad con estrategias de marketing digital, fotografía profesional y tasación experta. Nuestro enfoque integral incluye preparación de la propiedad, marketing especializado y negociación profesional para obtener el mejor precio en el menor tiempo posible.",
+    shortDescription: "Vende tu propiedad al mejor precio del mercado",
+    icon: "💰",
+    features: [
+      "Tasación gratuita y análisis de mercado",
+      "Fotografía y video profesional",
+      "Marketing digital en múltiples plataformas",
+      "Gestión y coordinación de visitas",
+      "Negociación experta con compradores",
+      "Asesoría en mejoras para aumentar valor",
+      "Reportes semanales de actividad",
+      "Gestión legal hasta la escrituración",
+    ],
+    image: "/images/servicios/asesoria_en_venta.png??height=400&width=600",
+  },
+  {
+    id: "gestion-arriendos",
+    title: "Gestión de Arriendos",
+    description:
+      "Administramos tu propiedad en arriendo con total transparencia y eficiencia. Nos encargamos de todo: desde encontrar al arrendatario ideal hasta la gestión mensual de pagos y mantención. Tu inversión estará en las mejores manos.",
+    shortDescription: "Administración integral de propiedades en arriendo",
+    icon: "🔑",
+    features: [
+      "Selección rigurosa de arrendatarios",
+      "Cobranza mensual automatizada",
+      "Mantención preventiva y correctiva",
+      "Informes mensuales detallados",
+      "Gestión de garantías y seguros",
+      "Atención 24/7 para emergencias",
+      "Renovación automática de contratos",
+      "Optimización de rentabilidad",
+    ],
+    image: "/images/servicios/asesoria_en_arriendo.png?height=400&width=600",
+  },
+  // {
+  //   id: "inversion-inmobiliaria",
+  //   title: "Inversión Inmobiliaria",
+  //   description:
+  //     "Asesoramos en inversiones inmobiliarias rentables con análisis de mercado especializado. Te ayudamos a identificar las mejores oportunidades de inversión, evaluar riesgos y proyectar rentabilidades para que tomes decisiones informadas y exitosas.",
+  //   shortDescription: "Invierte inteligentemente en el mercado inmobiliario",
+  //   icon: "📈",
+  //   features: [
+  //     "Análisis detallado de rentabilidad",
+  //     "Estudios de mercado y tendencias",
+  //     "Proyecciones financieras a largo plazo",
+  //     "Identificación de oportunidades de inversión",
+  //     "Asesoría en diversificación de portafolio",
+  //     "Seguimiento post-inversión",
+  //     "Estrategias de salida y liquidez",
+  //     "Análisis de riesgo y mitigación",
+  //   ],
+  //   image: "/placeholder.svg?height=400&width=600",
+  // },
+]
+
+export const testimonials: Testimonial[] = [
+  {
+    id: "1",
+    name: "María González",
+    role: "Compradora",
+    content:
+      "Excelente servicio. Me ayudaron a encontrar la casa perfecta para mi familia en tiempo record. Muy profesionales y atentos.",
+    avatar: "/placeholder.svg?height=80&width=80",
+    rating: 5,
+  },
+  {
+    id: "2",
+    name: "Carlos Rodríguez",
+    role: "Inversionista",
+    content:
+      "Gracias a Vivienda Chile pude hacer una inversión muy rentable. Su análisis de mercado fue clave para tomar la decisión correcta.",
+    avatar: "/placeholder.svg?height=80&width=80",
+    rating: 5,
+  },
+  {
+    id: "3",
+    name: "Ana Martínez",
+    role: "Vendedora",
+    content:
+      "Vendí mi departamento en tiempo record y al precio que esperaba. El equipo de marketing hizo un trabajo excepcional.",
+    avatar: "/placeholder.svg?height=80&width=80",
+    rating: 5,
+  },
+]
