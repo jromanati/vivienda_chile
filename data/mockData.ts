@@ -1,4 +1,5 @@
 import type { Property, Service, Testimonial } from "@/types"
+import { OperationEnum, StateEnum, PropertyTypeEnum, PriceTypeEnum } from "@/types/admin"
 
 export const properties: Property[] = [
   {
@@ -8,14 +9,22 @@ export const properties: Property[] = [
       "Hermosa casa moderna de 3 pisos con acabados de lujo, jardín privado y vista panorámica a la cordillera.",
     price: 450000000,
     location: "Las Condes, Santiago",
+    region: "Metropolitana",
+    commune: "Las Condes",
     bedrooms: 4,
     bathrooms: 3,
     area: 280,
-    type: "casa",
+    property_type: PropertyTypeEnum.CASA,
     status: "venta",
+    show_map:true,
+    map_src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2128.742564230862!2d-70.52295104337543!3d-33.39210664772879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cea3f7c82313%3A0x7664e481d8ef91ad!2sApoquindo%2C%207591253%20Las%20Condes%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1755343177144!5m2!1ses!2scl",
     images: [
-      "/images/propiedades/las_condes.jpg?height=400&width=600",
-      "/images/propiedades/las_condes2.png?height=400&width=600",
+      {
+        url: "/images/propiedades/las_condes.jpg?height=400&width=600"
+      },
+      {
+        url: "/images/propiedades/las_condes2.png?height=400&width=600"
+      },
     ],
     videos: [
       "/videos/propiedades/video_condes.mp4?height=600&width=800&text=Video+Tour+Casa",
@@ -30,13 +39,19 @@ export const properties: Property[] = [
       "Exclusivo departamento en el corazón de Reñaca con todas las comodidades y excelente conectividad.",
     price: 3200000,
     location: "Providencia, Santiago",
+    region: "Valparaíso",
+    commune: "Reñaca",
     bedrooms: 2,
     bathrooms: 2,
     area: 85,
-    type: "departamento",
+    property_type: PropertyTypeEnum.DEPARTAMENTO,
     status: "arriendo",
+    show_map:true,
+    map_src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1021.2756355138886!2d-71.54329663165626!3d-32.96496421307197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689dd131cdbc0ef%3A0xf6a8873ee87f4a82!2zUmXDsWFjYQ!5e0!3m2!1ses!2scl!4v1755343300712!5m2!1ses!2scl",
     images: [
-      "/images/propiedades/re_aca.jpg?height=400&width=600",
+      {
+        url: "/images/propiedades/re_aca.jpg?height=400&width=600"
+      },
     ],
     videos: [
       "/placeholder.svg?height=600&width=800&text=Video+Recorrido+Depto"
@@ -50,11 +65,15 @@ export const properties: Property[] = [
     description: "Acogedora casa familiar con amplio patio, perfecta para familias que buscan tranquilidad y espacio.",
     price: 280000000,
     location: "Ñuñoa, Santiago",
+    region: "Metropolitana",
+    commune: "Las Condes",
     bedrooms: 3,
     bathrooms: 2,
     area: 150,
-    type: "casa",
+    property_type: PropertyTypeEnum.CASA,
     status: "venta",
+    show_map:true,
+    map_src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2128.742564230862!2d-70.52295104337543!3d-33.39210664772879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cea3f7c82313%3A0x7664e481d8ef91ad!2sApoquindo%2C%207591253%20Las%20Condes%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1755343177144!5m2!1ses!2scl",
     images: [
       "/placeholder.svg?height=400&width=600",
       "/placeholder.svg?height=400&width=600",
@@ -73,7 +92,10 @@ export const properties: Property[] = [
     bathrooms: 2,
     area: 120,
     type: "oficina",
+    property_type: PropertyTypeEnum.OFICINA,
     status: "arriendo",
+    show_map:true,
+    map_src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2128.742564230862!2d-70.52295104337543!3d-33.39210664772879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cea3f7c82313%3A0x7664e481d8ef91ad!2sApoquindo%2C%207591253%20Las%20Condes%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1755343177144!5m2!1ses!2scl",
     images: [
       "/placeholder.svg?height=400&width=600",
       "/placeholder.svg?height=400&width=600",
@@ -92,7 +114,10 @@ export const properties: Property[] = [
     bathrooms: 3,
     area: 200,
     type: "departamento",
+    property_type: PropertyTypeEnum.DEPARTAMENTO,
     status: "venta",
+    show_map:true,
+    map_src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2128.742564230862!2d-70.52295104337543!3d-33.39210664772879!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cea3f7c82313%3A0x7664e481d8ef91ad!2sApoquindo%2C%207591253%20Las%20Condes%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1755343177144!5m2!1ses!2scl",
     images: [
       "/placeholder.svg?height=400&width=600",
       "/placeholder.svg?height=400&width=600",
@@ -111,6 +136,7 @@ export const properties: Property[] = [
     bathrooms: 3,
     area: 220,
     type: "casa",
+    property_type: PropertyTypeEnum.CASA,
     status: "venta",
     images: [
       "/placeholder.svg?height=400&width=600",
@@ -124,59 +150,55 @@ export const properties: Property[] = [
 
 export const services: Service[] = [
   {
-    id: "asesoria-compra",
-    title: "Asesoría en Compra",
+    id: "corretaje-propiedades",
+    title: "Corretaje de Propiedades",
+    shortDescriptionHome: "Asesoria y gestión personalizada según tus necesidades",
     description:
-      "Te acompañamos en todo el proceso de compra de tu propiedad, desde la búsqueda hasta la escrituración. Nuestro equipo de expertos te guiará paso a paso para que tomes la mejor decisión de inversión. Analizamos el mercado, evaluamos propiedades y negociamos el mejor precio para ti.",
-    shortDescription: "Acompañamiento completo en la compra de propiedades",
+      "¿Quieres vender, comprar o arrendar una propiedad? Te ayudamos en todo el proceso de forma rápida, segura y sin complicaciones.",
+    shortDescription: "Contamos con expertos en bienes raíces que te asesoran desde la tasación, promoción, visitas, negociación hasta el cierre final. Trabajamos con propiedades residenciales, comerciales y terrenos.",
+    lastDescription: "",
     icon: "🏠",
+    features_label: "Ofrecemos servicios de corretaje para:",
     features: [
-      "Búsqueda personalizada según tus necesidades",
-      "Evaluación técnica y legal de propiedades",
-      "Negociación profesional del precio",
-      "Gestión completa de documentación legal",
-      "Acompañamiento en la escrituración",
-      "Asesoría en financiamiento hipotecario",
-      "Inspección técnica de la propiedad",
-      "Análisis de plusvalía y proyección de valor",
+      "Venta de casas y departamentos",
+      "Compra de propiedades",
+      "Arriendo de inmuebles",
     ],
     image: "/images/servicios/asesoria_en_compra.png?height=400&width=600",
   },
   {
     id: "asesoria-venta",
-    title: "Asesoría en Venta",
+    title: "Asesoría Legal",
+    shortDescriptionHome: "Abogados expertos en derecho inmobiliario",
     description:
-      "Maximizamos el valor de tu propiedad con estrategias de marketing digital, fotografía profesional y tasación experta. Nuestro enfoque integral incluye preparación de la propiedad, marketing especializado y negociación profesional para obtener el mejor precio en el menor tiempo posible.",
-    shortDescription: "Vende tu propiedad al mejor precio del mercado",
+      "¿Tienes dudas legales al comprar o vender una propiedad? Te acompañamos con asesoría legal especializada para que tomes decisiones seguras.",
+    shortDescription: "Trabajamos con abogados con experiencia en derecho inmobiliario para garantizar que cada operación esté 100% en regla. Asesoria legal para propiedades residenciales, comerciales y terrenos.",
+    lastDescription: "",
     icon: "💰",
+    features_label: "Ofrecemos apoyo en:",
     features: [
-      "Tasación gratuita y análisis de mercado",
-      "Fotografía y video profesional",
-      "Marketing digital en múltiples plataformas",
-      "Gestión y coordinación de visitas",
-      "Negociación experta con compradores",
-      "Asesoría en mejoras para aumentar valor",
-      "Reportes semanales de actividad",
-      "Gestión legal hasta la escrituración",
+      "Revisión de títulos y escrituras",
+      "Promesas de compraventa",
+      "Redacción y revisión de contratos",
+      "Solución de conflictos por arriendos, herencias o propiedades",
     ],
     image: "/images/servicios/asesoria_en_venta.png??height=400&width=600",
   },
   {
     id: "gestion-arriendos",
-    title: "Gestión de Arriendos",
+    title: "Financiamiento Habitacional",
+    shortDescriptionHome: "Tu mejor alternativa según monto ($), tasa (%) y plazos",
     description:
-      "Administramos tu propiedad en arriendo con total transparencia y eficiencia. Nos encargamos de todo: desde encontrar al arrendatario ideal hasta la gestión mensual de pagos y mantención. Tu inversión estará en las mejores manos.",
-    shortDescription: "Administración integral de propiedades en arriendo",
+      "¿Necesitas ayuda para conseguir tu crédito hipotecario? Te guiamos para encontrar el mejor financiamiento para comprar tu propiedad.",
+    shortDescription: "Buscamos las mejor tasa y condiciones para ti. Te acompañamos desde el inicio hasta la firma en notaría.",
+    lastDescription: "REQUISITOS: Chilenos o extranjeros con permanencia definitiva, antigüedad laboral desde 1 año, ingresos líquidos desde $900.000.- SIN DICOM!! (castigos y dicom histórico sujeto a evaluación)",
     icon: "🔑",
+    features_label: "Te apoyamos en:",
     features: [
-      "Selección rigurosa de arrendatarios",
-      "Cobranza mensual automatizada",
-      "Mantención preventiva y correctiva",
-      "Informes mensuales detallados",
-      "Gestión de garantías y seguros",
-      "Atención 24/7 para emergencias",
-      "Renovación automática de contratos",
-      "Optimización de rentabilidad",
+      "Comparar créditos hipotecarios entre bancos y mutuarias",
+      "Preaprobaciones rápidas",
+      "Gestión Leasing + Subsidio Automático y Leaseback Inmobiliario",
+      "Gestión completa del financiamiento",
     ],
     image: "/images/servicios/asesoria_en_arriendo.png?height=400&width=600",
   },

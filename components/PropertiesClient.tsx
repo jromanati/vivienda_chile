@@ -1,3 +1,4 @@
+// components/PropertiesClient.tsx
 "use client"
 
 import { useState, useEffect } from "react"
@@ -8,24 +9,33 @@ import PropertyFilters from "@/components/PropertyFilters"
 import PropertyControls from "@/components/PropertyControls"
 import AnimatedSection from "@/components/AnimatedSection"
 import { usePropertyFilters } from "@/hooks/usePropertyFilters"
+// import { useProperties } from "@/hooks/useProperties"
+import { properties, services, testimonials } from "@/data/mockData"
 import type { Property } from "@/types"
 
-interface PropertiesClientProps {
-  properties: Property[]
-}
-
-const PropertiesClient = ({ properties }: PropertiesClientProps) => {
+const PropertiesClient = () => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [hasAppliedUrlParams, setHasAppliedUrlParams] = useState(false)
   const searchParams = useSearchParams()
-  const { filters, setFilters, sortBy, setSortBy, filteredProperties, clearFilters } = usePropertyFilters(properties)
 
-  // Apply URL parameters on mount
+  // React Query + WebSocket hook
+  // const { data: properties = [], isLoading, error } = useProperties(null)
+
+  // Filtros y orden sobre datos
+  const {
+    filters,
+    setFilters,
+    sortBy,
+    setSortBy,
+    filteredProperties,
+    clearFilters,
+  } = usePropertyFilters(properties)
+
+  // Aplicar parámetros de URL al cargar filtros
   useEffect(() => {
     if (!hasAppliedUrlParams) {
       const urlType = searchParams.get("type")
       const urlStatus = searchParams.get("status")
-
       if (urlType || urlStatus) {
         setFilters({
           ...filters,
@@ -37,11 +47,32 @@ const PropertiesClient = ({ properties }: PropertiesClientProps) => {
     }
   }, [searchParams, hasAppliedUrlParams, filters, setFilters])
 
+  // Mostrar loader o error
+  // if (isLoading) {
+  //   return (
+  //     <div className="text-center py-12">
+  //       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
+  //       <p className="mt-4 text-gray-600">Cargando propiedades...</p>
+  //     </div>
+  //   )
+  // }
+  // if (error) {
+  //   return (
+  //     <div className="text-center py-12 text-red-600">
+  //       Error cargando propiedades
+  //     </div>
+  //   )
+  // }
+
   return (
     <>
       {/* Filters */}
       <AnimatedSection>
-        <PropertyFilters filters={filters} onFiltersChange={setFilters} onClearFilters={clearFilters} />
+        <PropertyFilters
+          filters={filters}
+          onFiltersChange={setFilters}
+          onClearFilters={clearFilters}
+        />
       </AnimatedSection>
 
       {/* Controls */}
@@ -60,8 +91,12 @@ const PropertiesClient = ({ properties }: PropertiesClientProps) => {
         {filteredProperties.length === 0 ? (
           <div className="text-center py-16">
             <div className="text-6xl mb-4">🏠</div>
-            <h3 className="text-2xl font-semibold text-gray-900 mb-2">No se encontraron propiedades</h3>
-            <p className="text-gray-600 mb-6">Intenta ajustar tus filtros para encontrar más opciones</p>
+            <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+              No se encontraron propiedades
+            </h3>
+            <p className="text-gray-600 mb-6">
+              Intenta ajustar tus filtros para encontrar más opciones
+            </p>
             <button onClick={clearFilters} className="btn-primary">
               Limpiar Filtros
             </button>
@@ -83,14 +118,13 @@ const PropertiesClient = ({ properties }: PropertiesClientProps) => {
         )}
       </AnimatedSection>
 
-      {/* Load More Button (for future pagination) */}
+      {/* Load More info */}
       {filteredProperties.length > 0 && (
         <AnimatedSection delay={300}>
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-4">
               Mostrando {filteredProperties.length} de {properties.length} propiedades
             </p>
-            {/* Future: Add pagination here */}
           </div>
         </AnimatedSection>
       )}

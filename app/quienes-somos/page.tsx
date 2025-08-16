@@ -3,6 +3,7 @@ import AnimatedSection from "@/components/AnimatedSection"
 import type { Metadata } from "next"
 import Image from "next/image"
 import { Award, Users, Home, TrendingUp } from "lucide-react"
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Quiénes Somos",
@@ -46,7 +47,8 @@ export default function QuienesSomosPage() {
 
   return (
     <div className="min-h-screen">
-      <Breadcrumbs items={breadcrumbItems} />
+      <Navbar />
+      {/* <Breadcrumbs items={breadcrumbItems} /> */}
 
       {/* Hero Section */}
       <section className="relative py-16 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden">
@@ -55,8 +57,9 @@ export default function QuienesSomosPage() {
           <AnimatedSection>
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">Quiénes Somos</h1>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              Somos una empresa familiar con más de una década de experiencia en el mercado inmobiliario chileno,
-                  comprometidos con ayudar a las familias a encontrar su hogar ideal.
+              Contamos con un equipo de profesionales comprometidos y con años de experiencia
+inmobiliaria. Somos expertos en el manejo de trámites ante instituciones públicas y privadas,
+simplificando la venta, compra o arriendo de tu propiedad.
             </p>
           </AnimatedSection>
         </div>
@@ -69,7 +72,7 @@ export default function QuienesSomosPage() {
       </section>
 
       {/* Estadísticas */}
-      <section className="py-16 bg-white">
+      {/* <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -85,7 +88,7 @@ export default function QuienesSomosPage() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section> */}
 
       {/* Nuestra Historia */}
       <section id="historia" className="py-20 bg-gray-50">
@@ -109,24 +112,17 @@ export default function QuienesSomosPage() {
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Nuestra Historia</h2>
                 <div className="space-y-6 text-gray-700 leading-relaxed">
                   <p className="text-lg">
-                    Vivienda Chile nació en 2014 con un sueño simple pero ambicioso: revolucionar la experiencia de
-                    compra y venta de propiedades en Chile, poniendo siempre a nuestros clientes en el centro de todo lo
-                    que hacemos.
+                    Viviendachile nace en 2018 con la visión de transformar la experiencia inmobiliaria en Chile, aprovechando la sólida experiencia de su fundador en el rubro bancario y financiero. Lo que comenzó como un ambicioso proyecto en una pequeña oficina en la comuna de Santiago, hoy se ha consolidado como una de las corredoras más confiables, respaldada por un equipo de profesionales especializados.
                   </p>
                   <p>
-                    Lo que comenzó como una pequeña oficina familiar en Providencia, hoy se ha convertido en una de las
-                    inmobiliarias más confiables de Santiago, con un equipo de más de 20 profesionales especializados.
-                  </p>
-                  <p>
-                    A lo largo de estos años, hemos ayudado a más de 1,000 familias a encontrar su hogar ideal, siempre
-                    manteniendo nuestros valores de transparencia, profesionalismo y compromiso.
+                    En nuestros años de trayectoria, hemos acompañado a cientos de clientes a alcanzar sus metas, desde la compra de su primer hogar hasta el éxito de sus proyectos de inversión. Nuestro crecimiento se ha cimentado en los valores que nos definen: transparencia, profesionalismo y compromiso.
                   </p>
                 </div>
-                <div className="mt-8">
+                {/* <div className="mt-8">
                   <a href="/contacto" className="btn-primary">
                     Conoce Más Sobre Nosotros
                   </a>
-                </div>
+                </div> */}
               </div>
             </AnimatedSection>
           </div>
@@ -134,7 +130,7 @@ export default function QuienesSomosPage() {
       </section>
 
       {/* Misión y Visión */}
-      <section className="py-20 bg-white">
+      {/* <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center mb-16">
@@ -174,10 +170,10 @@ export default function QuienesSomosPage() {
             </AnimatedSection>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Nuestro Equipo */}
-      <section className="py-20 bg-gray-50">
+      {/* <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center mb-16">
@@ -212,7 +208,7 @@ export default function QuienesSomosPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Valores */}
       <section className="py-20 bg-white">
@@ -276,7 +272,7 @@ export default function QuienesSomosPage() {
           <AnimatedSection>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">¿Quieres ser parte de nuestra historia?</h2>
             <p className="text-xl text-gray-300 mb-8">
-              Únete a las más de 1,000 familias que han confiado en nosotros para encontrar su hogar ideal
+              Somos el respaldo que necesitas. Únete a cientos de clientes que hemos acompañado para encontrar la propiedad perfecta y asegurar sus inversiones.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="/contacto" className="btn-primary">

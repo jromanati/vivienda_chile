@@ -1,3 +1,5 @@
+"use client";
+
 import Hero from "@/components/Hero"
 import { PropertyCard, ServiceCard } from "@/components/Card"
 import AnimatedSection from "@/components/AnimatedSection"
@@ -5,14 +7,30 @@ import { properties, services, testimonials } from "@/data/mockData"
 import Link from "next/link"
 import Image from "next/image"
 import { Star } from "lucide-react"
+import useAutoLogin from "@/hooks/useAutoLogin";
+// ...tus demás importaciones
+import { useProperties } from "@/hooks/useProperties";
+import { useEffect } from "react";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
-  const featuredProperties = properties.slice(0, 3)
+  useAutoLogin();
   const featuredServices = services
-
+  const featuredProperties = properties.slice(0, 3)
+  // const token = localStorage.getItem("token");
+  // const { data: properties, isLoading, isError } = useProperties(null);
+  // const featuredProperties = properties
+  //   ? properties.slice(0, 3)
+  //   : [];
+  // useEffect(() => {
+  //   if (!isLoading && !isError) {
+  //     console.log("properties2 →", properties);
+  //   }
+  // }, [properties, isLoading, isError]);
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
+      <Navbar />
       <Hero />
 
       {/* Servicios Destacados */}
@@ -25,7 +43,7 @@ export default function Home() {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredServices.map((service, index) => (
               <AnimatedSection key={service.id} delay={index * 100} animation="scale">
                 <ServiceCard service={service} />
@@ -72,10 +90,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection animation="fade-left">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">¿Por qué elegir Vivienda Chile?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">¿Por qué elegir Viviendachile?</h2>
               <p className="text-xl mb-6 text-blue-100">
-                Con más de 10 años de experiencia en el mercado inmobiliario chileno, somos tu socio de confianza para
-                encontrar la propiedad perfecta.
+                Nuestra trayectoria de más de 10 años nos consolida como tu socio estratégico en el
+mercado inmobiliario chileno. Brindamos un servicio integral que incluye asesoría profesional,
+gestión de financiamiento y asesoría legal, garantizando la seguridad y confianza que necesitas
+para la compra, venta o arriendo de tu propiedad de manera rápida y eficiente.
               </p>
               <ul className="space-y-4 mb-8">
                 <li className="flex items-center text-white">
@@ -84,16 +104,16 @@ export default function Home() {
                 </li>
                 <li className="flex items-center text-white">
                   <span className="mr-3 text-2xl text-blue-200">✓</span>
-                  <span>Amplio portafolio de propiedades exclusivas</span>
+                  <span>Gestión transparente y sin sorpresas</span>
                 </li>
                 <li className="flex items-center text-white">
                   <span className="mr-3 text-2xl text-blue-200">✓</span>
-                  <span>Proceso transparente y sin sorpresas</span>
+                  <span>Te acompañamos en todo el proceso</span>
                 </li>
-                <li className="flex items-center text-white">
+                {/* <li className="flex items-center text-white">
                   <span className="mr-3 text-2xl text-blue-200">✓</span>
                   <span>Acompañamiento integral en todo el proceso</span>
-                </li>
+                </li> */}
               </ul>
               <Link
                 href="/quienes-somos"
@@ -173,7 +193,7 @@ export default function Home() {
           <AnimatedSection>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">¿Listo para encontrar tu próximo hogar?</h2>
             <p className="text-xl text-gray-300 mb-8">
-              Nuestro equipo de expertos está aquí para ayudarte en cada paso del camino
+              Nuestro equipo profesional te ayudara en cada etapa del proceso
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

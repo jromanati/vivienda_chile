@@ -13,8 +13,8 @@ interface HeroProps {
 }
 
 const Hero = ({
-  title = "Encuentra la casa de tus sueños con Vivienda Chile",
-  subtitle = "Asesoría inmobiliaria, propiedades exclusivas y servicios integrales",
+  title = "Tu Solución Inmobiliaria y Financiera en un solo lugar!",
+  subtitle = "Asesoría Inmobiliaria y Financiamiento Habitacional",
   ctaText = "Ver Propiedades",
   ctaLink = "/propiedades",
   backgroundImages = [

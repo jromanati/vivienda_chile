@@ -4,6 +4,7 @@ import { services } from "@/data/mockData"
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Servicios",
@@ -15,7 +16,8 @@ export default function ServiciosPage() {
 
   return (
     <div className="min-h-screen">
-      <Breadcrumbs items={breadcrumbItems} />
+      <Navbar />
+      {/* <Breadcrumbs items={breadcrumbItems} /> */}
 
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden">
@@ -24,8 +26,10 @@ export default function ServiciosPage() {
           <AnimatedSection>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">Nuestros Servicios</h1>
             <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-              Ofrecemos servicios integrales para todas tus necesidades inmobiliarias, con la experiencia y
-              profesionalismo que nos caracteriza. Desde la compra hasta la inversión, te acompañamos en cada paso.
+              Te ofrecemos la tranquilidad de una asesoría profesional en cada etapa. Ya sea que
+busques tu próximo hogar, arriendo de tu propiedad o la oportunidad de inversión ideal, te
+acompañamos con la experiencia que necesitas para tomar la mejor decisión inmobiliaria, legal o
+financiera.
             </p>
           </AnimatedSection>
         </div>
@@ -64,12 +68,18 @@ export default function ServiciosPage() {
                   {/* Contenido */}
                   <div className={`${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}`}>
                     <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-                      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{service.title}</h2>
+                      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                        {service.title}
+                      </h2>
 
-                      <p className="text-lg text-gray-600 mb-6 leading-relaxed">{service.shortDescription}</p>
+                      <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                        {service.description}
+                      </p>
 
                       <div className="mb-8">
-                        <h3 className="text-xl font-semibold mb-4 text-gray-900">Características principales:</h3>
+                        <h3 className="text-xl font-semibold mb-4 text-gray-900">
+                          {service.features_label}
+                        </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                           {service.features.slice(0, 4).map((feature, featureIndex) => (
                             <div key={featureIndex} className="flex items-center">
@@ -80,13 +90,23 @@ export default function ServiciosPage() {
                         </div>
                       </div>
 
-                      <div className="flex flex-col sm:flex-row gap-4">
-                        <Link href={`/servicios/${service.id}`} className="btn-primary flex-1 text-center">
+                      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                        {/* <Link href={`/servicios/${service.id}`} className="btn-primary flex-1 text-center">
                           Ver Detalles Completos
-                        </Link>
+                        </Link> */}
                         <Link href="/contacto" className="btn-secondary flex-1 text-center">
                           Solicitar Información
                         </Link>
+                      </div>
+                      <div>
+                        <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+                          {service.shortDescription}
+                        </p>
+                      </div>
+                      <div>
+                        <strong className="text-lg text-gray-600 mb-6 leading-relaxed">
+                          {service.lastDescription}
+                        </strong>
                       </div>
                     </div>
                   </div>
@@ -98,7 +118,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-blue-600 text-white">
+      {/* <section className="py-16 bg-blue-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -121,7 +141,7 @@ export default function ServiciosPage() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-20 bg-gray-900 text-white">
@@ -135,12 +155,12 @@ export default function ServiciosPage() {
               <Link href="/contacto" className="btn-primary">
                 Contactar Ahora
               </Link>
-              <a
+              {/* <a
                 href="tel:+56223456789"
                 className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900 transform hover:scale-105 inline-block"
               >
                 Llamar Directamente
-              </a>
+              </a> */}
             </div>
           </AnimatedSection>
         </div>

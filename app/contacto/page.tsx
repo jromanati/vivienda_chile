@@ -4,6 +4,7 @@ import AnimatedSection from "@/components/AnimatedSection"
 import type { Metadata } from "next"
 import Image from "next/image"
 import { MapPin, Phone, Mail, Clock, MessageCircle, Calendar, Users, Headphones } from "lucide-react"
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Contacto",
@@ -18,7 +19,7 @@ export default function ContactoPage() {
     {
       icon: Phone,
       title: "Teléfono Principal",
-      primary: "+56 2 2345 6789",
+      primary: "+56 9 4209 1392",
       secondary: "Lun - Vie: 9:00 - 18:00",
       description: "Atención inmediata para consultas generales",
       color: "bg-blue-100 text-blue-600",
@@ -26,7 +27,7 @@ export default function ContactoPage() {
     {
       icon: MessageCircle,
       title: "WhatsApp Business",
-      primary: "+56 9 8765 4321",
+      primary: "+56 9 6727 0575",
       secondary: "24/7 Disponible",
       description: "Respuesta rápida y atención personalizada",
       color: "bg-green-100 text-green-600",
@@ -34,19 +35,19 @@ export default function ContactoPage() {
     {
       icon: Mail,
       title: "Email Corporativo",
-      primary: "info@viviendachile.cl",
+      primary: "contacto@viviendachile.cl",
       secondary: "Respuesta en 24hrs",
       description: "Para consultas detalladas y documentación",
       color: "bg-purple-100 text-purple-600",
     },
-    {
-      icon: Calendar,
-      title: "Cita Presencial",
-      primary: "Agenda tu visita",
-      secondary: "Lun - Sáb disponible",
-      description: "Asesoría personalizada en nuestras oficinas",
-      color: "bg-orange-100 text-orange-600",
-    },
+    // {
+    //   icon: Calendar,
+    //   title: "Cita Presencial",
+    //   primary: "Agenda tu visita",
+    //   secondary: "Lun - Sáb disponible",
+    //   description: "Asesoría personalizada en nuestras oficinas",
+    //   color: "bg-orange-100 text-orange-600",
+    // },
   ]
 
   const officeInfo = [
@@ -79,11 +80,6 @@ export default function ContactoPage() {
 
   const faqs = [
     {
-      question: "¿Cuál es el horario de atención?",
-      answer:
-        "Nuestro horario regular es de lunes a viernes de 9:00 a 18:00 y sábados de 10:00 a 14:00. Para emergencias de propiedades en arriendo, tenemos disponibilidad 24/7.",
-    },
-    {
       question: "¿Cobran por la asesoría inicial?",
       answer:
         "No, la primera consulta y asesoría es completamente gratuita. Nuestros especialistas evaluarán tu caso sin costo alguno.",
@@ -91,18 +87,23 @@ export default function ContactoPage() {
     {
       question: "¿Atienden propiedades fuera de Santiago?",
       answer:
-        "Sí, trabajamos en toda la Región Metropolitana y principales ciudades de Chile. Consulta disponibilidad para tu zona específica.",
+        "Sí, trabajamos en toda la Región Metropolitana, V y VI Región. Consulta disponibilidad para tu zona específica.",
     },
     {
       question: "¿Qué documentos necesito para vender mi propiedad?",
       answer:
-        "Necesitarás escritura de propiedad, certificado de avalúo fiscal, planos regulares, y documentos de gastos comunes al día. Te ayudamos con todo el proceso.",
+        "Es muy importante contar con documentos que acrediten dominio de la propiedad, escritura, certificado dominio o inscripción vigente, hipotecas o gravámenes (GP)",
     },
+    // {
+    //   question: "¿Cuál es el horario de atención?",
+    //   answer:
+    //     "Nuestro horario regular es de lunes a viernes de 9:00 a 18:00 y sábados de 10:00 a 14:00. Para emergencias de propiedades en arriendo, tenemos disponibilidad 24/7.",
+    // },
   ]
 
   return (
     <div className="min-h-screen">
-      <Breadcrumbs items={breadcrumbItems} />
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative py-16 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden">
@@ -136,7 +137,7 @@ export default function ContactoPage() {
             </div>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid w-max mx-auto grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {contactMethods.map((method, index) => (
               <AnimatedSection key={index} delay={index * 100} animation="scale">
                 <div className="card text-center group h-full">
@@ -159,7 +160,7 @@ export default function ContactoPage() {
       </section>
 
       {/* Información de Oficina */}
-      <section className="py-20 bg-gray-50">
+      {/* <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center mb-16">
@@ -191,7 +192,7 @@ export default function ContactoPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Formulario y Mapa */}
       <section className="py-20 bg-white">
@@ -211,11 +212,19 @@ export default function ContactoPage() {
                 <h3 className="text-2xl font-bold mb-6 text-gray-900">Nuestra Ubicación</h3>
                 <div className="card mb-6">
                   <div className="p-6">
-                    <div className="bg-gray-200 h-80 rounded-lg flex items-center justify-center mb-6">
-                      <div className="text-center">
-                        <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                        <p className="text-gray-500 font-medium">Mapa Interactivo</p>
-                        <p className="text-sm text-gray-400">(Integración con Google Maps)</p>
+                    <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6">
+                      <div className="relative h-96 bg-gray-200">
+                        <iframe
+                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.9099110640277!2d-70.62253450973247!3d-33.425593004811745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf63c7234f59%3A0x554ca7069c7a7ccc!2sAntonio%20Bellet%20193%2C%207500000%20Providencia%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1754956872310!5m2!1ses!2scl" 
+                          width="100%"
+                          height="100%"
+                          style={{ border: 0 }}
+                          allowFullScreen
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                          title="Ubicación"
+                          className="w-full h-full"
+                        ></iframe>
                       </div>
                     </div>
 
@@ -278,8 +287,8 @@ export default function ContactoPage() {
           <AnimatedSection delay={400}>
             <div className="text-center mt-12">
               <p className="text-gray-600 mb-6">¿No encuentras la respuesta que buscas?</p>
-              <a href="tel:+56223456789" className="btn-primary">
-                Llámanos Directamente
+              <a href="tel:+56967270575" className="btn-primary">
+                Contactar Asesor
               </a>
             </div>
           </AnimatedSection>

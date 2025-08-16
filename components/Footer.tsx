@@ -11,11 +11,11 @@ const Footer = () => {
           <div className="col-span-1 lg:col-span-2">
             <Link href="/" className="flex items-center space-x-2 mb-4">
               <Image src="/logo_solo.png" alt="Vivienda Chile" width={40} height={40} className="h-10 w-auto" />
-              <span className="text-xl font-bold">Vivienda Chile</span>
+              <span className="text-xl font-bold">Viviendachile</span>
             </Link>
             <p className="text-gray-300 mb-6 max-w-md">
-              Tu socio de confianza en el mercado inmobiliario chileno. Más de 10 años ayudando a familias a encontrar
-              su hogar ideal.
+             Tu socio de confianza en el mercado inmobiliario. Más de 10 años asesorando empresas y
+particulares en la compra, venta o arriendo de propiedades.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">
@@ -68,22 +68,22 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center">
                 <MapPin className="h-5 w-5 mr-3 text-primary-400" />
-                <span className="text-gray-300">Av. Providencia 1234, Santiago</span>
+                <span className="text-gray-300">Antonio Bellet #193, Of. 1210, Providencia, Santiago</span>
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-3 text-primary-400" />
-                <span className="text-gray-300">+56 2 2345 6789</span>
+                <span className="text-gray-300">+56 9 4209 1392</span>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-3 text-primary-400" />
-                <span className="text-gray-300">info@viviendachile.cl</span>
+                <span className="text-gray-300">contacto@viviendachile.cl</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">© 2024 Vivienda Chile. Todos los derechos reservados.</p>
+          <p className="text-gray-400 text-sm">© 2025 Viviendachile. Todos los derechos reservados.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="/privacidad" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
               Política de Privacidad

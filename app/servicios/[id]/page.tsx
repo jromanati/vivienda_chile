@@ -7,6 +7,7 @@ import AnimatedSection from "@/components/AnimatedSection"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { CheckCircle, ArrowLeft } from "lucide-react"
+import Navbar from "@/components/Navbar";
 
 interface Props {
   params: { id: string }
@@ -50,7 +51,8 @@ export default function ServiceDetailPage({ params }: Props) {
 
   return (
     <div className="min-h-screen">
-      <Breadcrumbs items={breadcrumbItems} />
+      <Navbar />
+      {/* <Breadcrumbs items={breadcrumbItems} /> */}
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black bg-opacity-20"></div>

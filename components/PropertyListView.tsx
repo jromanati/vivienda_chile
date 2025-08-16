@@ -14,6 +14,18 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
       minimumFractionDigits: 0,
     }).format(price)
   }
+  // const firstImageUrl = property.images?.[0]?.url ?? "/placeholder.svg";
+  // const locationLabel = `${property.region}, ${property.commune}`;
+  // const areaLabel =
+  //   property.built_area != null
+  //     ? `${property.built_area} m² (construida)`
+  //     : property.land_area != null
+  //     ? `${property.land_area} m² (terreno)`
+  //     : "-";
+
+  // // 4) Estado de la propiedad: operación
+  // const statusLabel =
+  //   property.operation === "En venta" ? "En Venta" : "En Arriendo";
 
   return (
     <div className="space-y-6">
@@ -26,7 +38,7 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
             {/* Image */}
             <div className="relative h-64 md:h-48 md:w-80 flex-shrink-0">
               <Image
-                src={property.images[0] || "/placeholder.svg"}
+                src={property.images?.[0]?.url ?? "/placeholder.svg"}
                 alt={property.title}
                 fill
                 className="object-cover"
@@ -34,15 +46,15 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
               <div className="absolute top-4 left-4">
                 <span
                   className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    property.status === "venta" ? "bg-green-100 text-green-800" : "bg-blue-100 text-blue-800"
+                    property.operation === "En venta" ? "bg-green-100 text-green-800" : "bg-blue-100 text-blue-800"
                   }`}
                 >
-                  {property.status === "venta" ? "En Venta" : "En Arriendo"}
+                  {property.operation === "En venta" ? "En Venta" : "En Arriendo"}
                 </span>
               </div>
               <div className="absolute top-4 right-4">
                 <span className="bg-white bg-opacity-90 px-2 py-1 rounded text-sm font-medium text-gray-800">
-                  {property.type.charAt(0).toUpperCase() + property.type.slice(1)}
+                  {property.property_type.charAt(0).toUpperCase() + property.property_type.slice(1)}
                 </span>
               </div>
             </div>
@@ -57,7 +69,7 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
                   <p className="text-gray-600 mb-3 line-clamp-2">{property.description}</p>
                   <p className="text-gray-500 mb-4 flex items-center">
                     <span className="mr-2">📍</span>
-                    {property.location}
+                    {`${property.region}, ${property.commune}`}
                   </p>
 
                   <div className="flex items-center gap-6 mb-4 text-sm text-gray-600">
@@ -71,12 +83,12 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
                     </span>
                     <span className="flex items-center">
                       <span className="mr-1">📐</span>
-                      {property.area}m²
+                      {property.built_area}m²
                     </span>
                   </div>
 
                   {/* Features */}
-                  <div className="mb-4">
+                  {/* <div className="mb-4">
                     <div className="flex flex-wrap gap-2">
                       {property.features.slice(0, 3).map((feature, index) => (
                         <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
@@ -89,7 +101,7 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
                         </span>
                       )}
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Price and Action */}

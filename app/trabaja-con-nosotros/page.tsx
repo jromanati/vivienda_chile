@@ -4,6 +4,7 @@ import ContactForm from "@/components/ContactForm"
 import type { Metadata } from "next"
 import Image from "next/image"
 import { Users, TrendingUp, Award, Heart, Clock, DollarSign, GraduationCap, Coffee } from "lucide-react"
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Trabaja con Nosotros",
@@ -140,7 +141,8 @@ export default function TrabajaConNosotrosPage() {
 
   return (
     <div className="min-h-screen">
-      <Breadcrumbs items={breadcrumbItems} />
+      <Navbar />
+      {/* <Breadcrumbs items={breadcrumbItems} /> */}
 
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white overflow-hidden">
@@ -159,11 +161,13 @@ export default function TrabajaConNosotrosPage() {
             <AnimatedSection animation="fade-left">
               <div className="text-center lg:text-left">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">Trabaja con Nosotros</h1>
-                <p className="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
-                  Únete al equipo líder en el mercado inmobiliario chileno. Desarrolla tu carrera profesional en un
-                  ambiente dinámico, colaborativo y lleno de oportunidades de crecimiento.
+                <p className="text-xl md:text-2xl text-blue-100 mb-6 leading-relaxed">
+                  ¿Buscas un desafío profesional en el sector inmobiliario? Estamos en constante búsqueda de talento motivado y comprometido con la excelencia en el servicio al cliente. ¡Únete a nuestro equipo y sé clave en el éxito de nuestros clientes!
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <p className="text-xl md:text-2xl text-blue-100 mb-8 leading-relaxed">
+                  Envíanos tus datos y forma parte de este gran equipo.
+                </p>
+                {/* <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <a href="#posiciones" className="btn-primary">
                     Ver Posiciones Abiertas
                   </a>
@@ -173,7 +177,7 @@ export default function TrabajaConNosotrosPage() {
                   >
                     Conoce los Beneficios
                   </a>
-                </div>
+                </div> */}
               </div>
             </AnimatedSection>
 
@@ -189,7 +193,7 @@ export default function TrabajaConNosotrosPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-blue-900/30 to-transparent"></div>
                 </div>
                 {/* Floating badge */}
-                <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-xl">
+                {/* <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-xl">
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                       <Users className="h-6 w-6 text-blue-600" />
@@ -199,7 +203,7 @@ export default function TrabajaConNosotrosPage() {
                       <div className="text-sm text-gray-600">Profesionales</div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </AnimatedSection>
           </div>
@@ -207,7 +211,7 @@ export default function TrabajaConNosotrosPage() {
       </section>
 
       {/* Por qué trabajar con nosotros */}
-      <section className="py-20 bg-white">
+      {/* <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center mb-16">
@@ -257,10 +261,10 @@ export default function TrabajaConNosotrosPage() {
             </AnimatedSection>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Beneficios */}
-      <section id="beneficios" className="py-20 bg-gray-50">
+      {/* <section id="beneficios" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center mb-16">
@@ -287,10 +291,10 @@ export default function TrabajaConNosotrosPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Posiciones Abiertas */}
-      <section id="posiciones" className="py-20 bg-white">
+      {/* <section id="posiciones" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center mb-16">
@@ -351,10 +355,10 @@ export default function TrabajaConNosotrosPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Proceso de Selección */}
-      <section className="py-20 bg-gray-50">
+      {/* <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center mb-16">
@@ -366,7 +370,6 @@ export default function TrabajaConNosotrosPage() {
           </AnimatedSection>
 
           <div className="relative">
-            {/* Timeline line */}
             <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-blue-200 hidden lg:block"></div>
 
             <div className="space-y-12">
@@ -382,7 +385,6 @@ export default function TrabajaConNosotrosPage() {
                       </div>
                     </div>
 
-                    {/* Step number */}
                     <div className="relative z-10 flex items-center justify-center w-16 h-16 bg-blue-600 text-white rounded-full font-bold text-xl shadow-lg">
                       {step.step}
                     </div>
@@ -394,7 +396,7 @@ export default function TrabajaConNosotrosPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Formulario de Aplicación */}
       <section id="aplicar" className="py-20 bg-white">
@@ -454,7 +456,7 @@ export default function TrabajaConNosotrosPage() {
       </section>
 
       {/* CTA Final */}
-      <section className="py-20 bg-gray-900 text-white">
+      {/* <section className="py-20 bg-gray-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection>
             <h2 className="text-3xl md:text-4xl font-bold mb-6">¿Tienes preguntas sobre las posiciones?</h2>
@@ -474,7 +476,7 @@ export default function TrabajaConNosotrosPage() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section> */}
     </div>
   )
 }

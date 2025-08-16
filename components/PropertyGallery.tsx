@@ -15,8 +15,17 @@ import {
   Minimize,
 } from "lucide-react"
 
+export interface PropertyImage {
+  id: number
+  propiedad_id: number
+  url: string
+  public_id: string
+  order: number
+  is_cover: boolean
+}
+
 interface PropertyGalleryProps {
-  images: string[]
+  images: PropertyImage[]
   videos?: string[]
   title: string
 }
@@ -31,9 +40,10 @@ const PropertyGallery = ({ images, videos = [], title }: PropertyGalleryProps) =
   const videoRef = useRef<HTMLVideoElement>(null)
   const modalRef = useRef<HTMLDivElement>(null)
 
+  // Unimos imágenes y videos en un solo array de medios
   const allMedia = [
-    ...images.map((img, index) => ({ type: "image" as const, src: img })),
-    ...videos.map((video, index) => ({ type: "video" as const, src: video })),
+    ...images.map((img) => ({ type: "image" as const, src: img.url })),
+    ...videos.map((video) => ({ type: "video" as const, src: video })),
   ]
 
   const currentMedia = allMedia[currentIndex]
@@ -53,7 +63,7 @@ const PropertyGallery = ({ images, videos = [], title }: PropertyGalleryProps) =
   const closeModal = () => {
     setIsModalOpen(false)
     setIsPlaying(false)
-    document.body.style.overflow = "unset"
+    document.body.style.overflow = "auto"
 
     if (videoRef.current) {
       videoRef.current.pause()
@@ -63,41 +73,34 @@ const PropertyGallery = ({ images, videos = [], title }: PropertyGalleryProps) =
   }
 
   /** Navegación dentro del modal */
-  const nextModalSlide = () => {
-    setModalIndex((prev) => (prev + 1) % allMedia.length)
-  }
-
-  const prevModalSlide = () => {
-    setModalIndex((prev) => (prev - 1 + allMedia.length) % allMedia.length)
-  }
+  const nextModalSlide = () => setModalIndex((prev) => (prev + 1) % allMedia.length)
+  const prevModalSlide = () => setModalIndex((prev) => (prev - 1 + allMedia.length) % allMedia.length)
 
   /** Reproducir vídeo */
   const togglePlay = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause()
-      } else {
-        videoRef.current.play()
-      }
+    const vid = videoRef.current
+    if (vid) {
+      if (isPlaying) vid.pause()
+      else vid.play()
       setIsPlaying(!isPlaying)
     }
   }
 
   /** Mute/unmute */
   const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !isMuted
+    const vid = videoRef.current
+    if (vid) {
+      vid.muted = !isMuted
       setIsMuted(!isMuted)
     }
   }
 
   /** Pantalla completa */
   const toggleFullscreen = async () => {
-    const element = modalRef.current
-    if (!element) return
-
+    const el = modalRef.current
+    if (!el) return
     if (!document.fullscreenElement) {
-      await element.requestFullscreen()
+      await el.requestFullscreen()
       setIsFullscreen(true)
     } else {
       await document.exitFullscreen()
@@ -105,23 +108,22 @@ const PropertyGallery = ({ images, videos = [], title }: PropertyGalleryProps) =
     }
   }
 
-  /** Cuando cambias de slide, reinicia el vídeo */
+  /** Reset de vídeo al cambiar slide */
   useEffect(() => {
+    const vid = videoRef.current
     if (modalMedia?.type === "video") {
-      if (videoRef.current) {
-        videoRef.current.currentTime = 0
-        videoRef.current.muted = isMuted
-        videoRef.current.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false))
+      if (vid) {
+        vid.currentTime = 0
+        vid.muted = isMuted
+        vid.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false))
       }
-    } else {
-      if (videoRef.current) {
-        videoRef.current.pause()
-        setIsPlaying(false)
-      }
+    } else if (vid) {
+      vid.pause()
+      setIsPlaying(false)
     }
   }, [modalIndex, isModalOpen])
 
-  /** Teclado */
+  /** Teclado para navegación */
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (!isModalOpen) return
@@ -129,7 +131,6 @@ const PropertyGallery = ({ images, videos = [], title }: PropertyGalleryProps) =
       if (e.key === "ArrowRight") nextModalSlide()
       if (e.key === "ArrowLeft") prevModalSlide()
     }
-
     document.addEventListener("keydown", handleKey)
     return () => document.removeEventListener("keydown", handleKey)
   }, [isModalOpen])
@@ -141,7 +142,7 @@ const PropertyGallery = ({ images, videos = [], title }: PropertyGalleryProps) =
         {currentMedia.type === "image" ? (
           <Image
             src={currentMedia.src}
-            alt={`${title}`}
+            alt={title}
             fill
             className="object-cover cursor-pointer"
             onClick={() => openModal(currentIndex)}
@@ -158,19 +159,12 @@ const PropertyGallery = ({ images, videos = [], title }: PropertyGalleryProps) =
           </video>
         )}
 
-        {/* Botones navegación */}
         {allMedia.length > 1 && (
           <>
-            <button
-              onClick={prevSlide}
-              className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
-            >
+            <button onClick={prevSlide} className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">
               <ChevronLeft />
             </button>
-            <button
-              onClick={nextSlide}
-              className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full"
-            >
+            <button onClick={nextSlide} className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/50 text-white p-2 rounded-full">
               <ChevronRight />
             </button>
           </>
@@ -178,72 +172,62 @@ const PropertyGallery = ({ images, videos = [], title }: PropertyGalleryProps) =
       </div>
 
       {/* Modal */}
-      {isModalOpen &&
-        ReactDOM.createPortal(
-          <div ref={modalRef} className="fixed inset-0 bg-black z-50 flex items-center justify-center">
-            <div className="relative w-full h-full flex items-center justify-center p-6">
-              {modalMedia.type === "image" ? (
-                <Image
-                  id="modal-image"
-                  src={modalMedia.src}
-                  alt={title}
-                  width={1400}
-                  height={900}
-                  className="object-contain rounded-lg max-h-[90vh]"
-                />
-              ) : (
-                <video
-                  ref={videoRef}
-                  muted={isMuted}
-                  className="object-contain rounded-lg max-h-[90vh]"
-                  onPlay={() => setIsPlaying(true)}
-                  onPause={() => setIsPlaying(false)}
-                >
-                  <source src={modalMedia.src} type="video/mp4" />
-                </video>
-              )}
+      {isModalOpen && ReactDOM.createPortal(
+        <div ref={modalRef} className="fixed inset-0 bg-black z-50 flex items-center justify-center">
+          <div className="relative w-full h-full flex items-center justify-center p-6">
+            {modalMedia.type === "image" ? (
+              <Image
+                src={modalMedia.src}
+                alt={title}
+                width={1400}
+                height={900}
+                className="object-contain rounded-lg max-h-[90vh]"
+              />
+            ) : (
+              <video
+                ref={videoRef}
+                muted={isMuted}
+                className="object-contain rounded-lg max-h-[90vh]"
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+              >
+                <source src={modalMedia.src} type="video/mp4" />
+              </video>
+            )}
 
-              {/* Controles */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
-                {modalMedia.type === "video" && (
-                  <>
-                    <button onClick={togglePlay} className="bg-black/60 text-white p-2 rounded-full">
-                      {isPlaying ? <Pause /> : <Play />}
-                    </button>
-                    <button onClick={toggleMute} className="bg-black/60 text-white p-2 rounded-full">
-                      {isMuted ? <VolumeX /> : <Volume2 />}
-                    </button>
-                  </>
-                )}
-                <button onClick={toggleFullscreen} className="bg-black/60 text-white p-2 rounded-full">
-                  {isFullscreen ? <Minimize /> : <Maximize />}
-                </button>
-                <button onClick={closeModal} className="bg-black/60 text-white p-2 rounded-full">
-                  <X />
-                </button>
-              </div>
-
-              {/* Navegación */}
-              {allMedia.length > 1 && (
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-4">
+              {modalMedia.type === "video" && (
                 <>
-                  <button
-                    onClick={prevModalSlide}
-                    className="absolute top-1/2 left-6 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full"
-                  >
-                    <ChevronLeft />
+                  <button onClick={togglePlay} className="bg-black/60 text-white p-2 rounded-full">
+                    {isPlaying ? <Pause /> : <Play />}
                   </button>
-                  <button
-                    onClick={nextModalSlide}
-                    className="absolute top-1/2 right-6 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full"
-                  >
-                    <ChevronRight />
+                  <button onClick={toggleMute} className="bg-black/60 text-white p-2 rounded-full">
+                    {isMuted ? <VolumeX /> : <Volume2 />}
                   </button>
                 </>
               )}
+              <button onClick={toggleFullscreen} className="bg-black/60 text-white p-2 rounded-full">
+                {isFullscreen ? <Minimize /> : <Maximize />}
+              </button>
+              <button onClick={closeModal} className="bg-black/60 text-white p-2 rounded-full">
+                <X />
+              </button>
             </div>
-          </div>,
-          document.body
-        )}
+
+            {allMedia.length > 1 && (
+              <>
+                <button onClick={prevModalSlide} className="absolute top-1/2 left-6 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full">
+                  <ChevronLeft />
+                </button>
+                <button onClick={nextModalSlide} className="absolute top-1/2 right-6 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full">
+                  <ChevronRight />
+                </button>
+              </>
+            )}
+          </div>
+        </div>,
+        document.body
+      )}
     </>
   )
 }

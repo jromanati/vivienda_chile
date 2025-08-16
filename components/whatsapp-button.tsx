@@ -8,7 +8,7 @@ export function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false)
 
   // Número de WhatsApp (formato internacional sin + y sin espacios)
-  const phoneNumber = "56942091392"
+  const phoneNumber = "56967270575"
   const message =
     "¡Hola Cristian! Me interesa conocer más sobre viviendas en arriendo. ¿Podrían ayudarme con información?"
 
