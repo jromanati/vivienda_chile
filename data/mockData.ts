@@ -157,7 +157,7 @@ export const services: Service[] = [
       "¿Quieres vender, comprar o arrendar una propiedad? Te ayudamos en todo el proceso de forma rápida, segura y sin complicaciones.",
     shortDescription: "Contamos con expertos en bienes raíces que te asesoran desde la tasación, promoción, visitas, negociación hasta el cierre final. Trabajamos con propiedades residenciales, comerciales y terrenos.",
     lastDescription: "",
-    icon: "🏠",
+    icon: "/images/servicios/corretaje_home.png?",
     features_label: "Ofrecemos servicios de corretaje para:",
     features: [
       "Venta de casas y departamentos",
@@ -174,7 +174,7 @@ export const services: Service[] = [
       "¿Tienes dudas legales al comprar o vender una propiedad? Te acompañamos con asesoría legal especializada para que tomes decisiones seguras.",
     shortDescription: "Trabajamos con abogados con experiencia en derecho inmobiliario para garantizar que cada operación esté 100% en regla. Asesoria legal para propiedades residenciales, comerciales y terrenos.",
     lastDescription: "",
-    icon: "💰",
+    icon: "/images/servicios/legal_home.png?",
     features_label: "Ofrecemos apoyo en:",
     features: [
       "Revisión de títulos y escrituras",
@@ -182,7 +182,7 @@ export const services: Service[] = [
       "Redacción y revisión de contratos",
       "Solución de conflictos por arriendos, herencias o propiedades",
     ],
-    image: "/images/servicios/asesoria_en_venta.png??height=400&width=600",
+    image: "/images/servicios/asesoria_legal.png??height=400&width=600",
   },
   {
     id: "gestion-arriendos",
@@ -192,7 +192,7 @@ export const services: Service[] = [
       "¿Necesitas ayuda para conseguir tu crédito hipotecario? Te guiamos para encontrar el mejor financiamiento para comprar tu propiedad.",
     shortDescription: "Buscamos las mejor tasa y condiciones para ti. Te acompañamos desde el inicio hasta la firma en notaría.",
     lastDescription: "REQUISITOS: Chilenos o extranjeros con permanencia definitiva, antigüedad laboral desde 1 año, ingresos líquidos desde $900.000.- SIN DICOM!! (castigos y dicom histórico sujeto a evaluación)",
-    icon: "🔑",
+    icon: "/images/servicios/financiamiento_home.png?",
     features_label: "Te apoyamos en:",
     features: [
       "Comparar créditos hipotecarios entre bancos y mutuarias",
@@ -200,7 +200,7 @@ export const services: Service[] = [
       "Gestión Leasing + Subsidio Automático y Leaseback Inmobiliario",
       "Gestión completa del financiamiento",
     ],
-    image: "/images/servicios/asesoria_en_arriendo.png?height=400&width=600",
+    image: "/images/servicios/asesoria_en_arriendo.jpg?height=400&width=600",
   },
   // {
   //   id: "inversion-inmobiliaria",

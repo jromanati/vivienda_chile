@@ -231,11 +231,11 @@ export default function ContactoPage() {
                     <div className="space-y-4">
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-2">📍 Dirección Completa</h4>
-                        <p className="text-gray-700">Av. Providencia 1234, Oficina 567</p>
+                        <p className="text-gray-700">Antonio Bellet #193, Of. 1210</p>
                         <p className="text-gray-700">Providencia, Santiago, Chile</p>
                       </div>
 
-                      <div>
+                      {/* <div>
                         <h4 className="font-semibold text-gray-900 mb-2">🚇 Cómo Llegar</h4>
                         <ul className="text-sm text-gray-600 space-y-1">
                           <li>• Metro: Estación Pedro de Valdivia (Línea 1) - 3 min caminando</li>
@@ -243,15 +243,15 @@ export default function ContactoPage() {
                           <li>• Auto: Estacionamiento disponible en el edificio</li>
                           <li>• Bicicleta: Ciclovía de Providencia</li>
                         </ul>
-                      </div>
+                      </div> */}
 
-                      <div>
+                      {/* <div>
                         <h4 className="font-semibold text-gray-900 mb-2">🏢 Referencias</h4>
                         <p className="text-sm text-gray-600">
                           Frente al Mall Costanera Center, a 2 cuadras del Metro Pedro de Valdivia. Edificio Torre
                           Providencia, entrada principal por Av. Providencia.
                         </p>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

@@ -1,9 +1,16 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
+import { useState } from "react"
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react"
+import LegalModal from "./modals/LegalModal"
 
 const Footer = () => {
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false)
+  const [termsModalOpen, setTermsModalOpen] = useState(false)
   return (
+    <>
     <footer className="bg-gray-900 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -82,19 +89,30 @@ particulares en la compra, venta o arriendo de propiedades.
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">© 2025 Viviendachile. Todos los derechos reservados.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="/privacidad" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
-              Política de Privacidad
-            </Link>
-            <Link href="/terminos" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
-              Términos y Condiciones
-            </Link>
+         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-400 text-sm">© 2024 Vivienda Chile. Todos los derechos reservados.</p>
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              <button
+                onClick={() => setPrivacyModalOpen(true)}
+                className="text-gray-400 hover:text-white text-sm transition-colors duration-200"
+              >
+                Política de Privacidad
+              </button>
+              <button
+                onClick={() => setTermsModalOpen(true)}
+                className="text-gray-400 hover:text-white text-sm transition-colors duration-200"
+              >
+                Términos y Condiciones
+              </button>
+            </div>
           </div>
-        </div>
       </div>
     </footer>
+
+    {/* Modales */}
+      <LegalModal isOpen={privacyModalOpen} onClose={() => setPrivacyModalOpen(false)} type="privacy" />
+      <LegalModal isOpen={termsModalOpen} onClose={() => setTermsModalOpen(false)} type="terms" />
+    </>
   )
 }
 

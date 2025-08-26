@@ -9,7 +9,7 @@ import Image from "next/image"
 import { Star } from "lucide-react"
 import useAutoLogin from "@/hooks/useAutoLogin";
 // ...tus demás importaciones
-import { useProperties } from "@/hooks/useProperties";
+// import { useProperties } from "@/hooks/useProperties";
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 
@@ -126,7 +126,7 @@ para la compra, venta o arriendo de tu propiedad de manera rápida y eficiente.
             <AnimatedSection animation="fade-right" delay={200}>
               <div className="relative transform hover:scale-105 transition-transform duration-300">
                 <Image
-                  src="/images/home_sub_seccion.jpg?height=500&width=600"
+                  src="/images/home_sub_seccion.png?height=500&width=600"
                   alt="Equipo Vivienda Chile"
                   width={600}
                   height={500}

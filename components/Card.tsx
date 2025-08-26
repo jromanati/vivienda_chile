@@ -100,7 +100,14 @@ export const ServiceCard = ({ service }: ServiceCardProps) => {
   return (
     <div className="card-uniform group text-center">
       <div className="p-6 flex flex-col h-full">
-        <div className="text-4xl mb-4 flex-shrink-0">{service.icon}</div>
+        <div className="w-64 h-64 mx-auto mb-4 relative rounded-full overflow-hidden shadow-md">
+          <Image
+            src={service.icon}
+            alt={service.title}
+            fill
+            className="object-cover"
+          />
+        </div>
         <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-200 min-h-[3.5rem] flex items-center justify-center">
           {service.title}
         </h3>
