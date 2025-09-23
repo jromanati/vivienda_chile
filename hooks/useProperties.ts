@@ -66,15 +66,15 @@ export function useProperties() {
     setIsLoading(true)
     setError(null)
 
-    const cached = localStorage.getItem("properties")
-    if (cached) {
-      try {
-        const parsed = JSON.parse(cached)
-        return parsed // <- data pura
-      } catch (e) {
-        console.error("Error parseando properties de localStorage", e)
-      }
-    }
+    // const cached = localStorage.getItem("properties")
+    // if (cached) {
+    //   try {
+    //     const parsed = JSON.parse(cached)
+    //     return parsed // <- data pura
+    //   } catch (e) {
+    //     console.error("Error parseando properties de localStorage", e)
+    //   }
+    // }
 
     try {
       const response = await PropertyService.getProperties()
