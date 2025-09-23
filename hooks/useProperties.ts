@@ -18,7 +18,7 @@ export const usePropertiesUpdates = () => {
     const proto = location.protocol === "https:" ? "wss" : "ws"
     // local
     // const ws = new WebSocket(`${proto}://viviendachile.localhost:8000/ws/properties/`)
-    const ws = new WebSocket(`$https://viviendachile.sitios.softwarelabs.cl/ws/properties/`)
+    const ws = new WebSocket(`https://viviendachile.sitios.softwarelabs.cl/wss/properties/`)
     // viviendachile.sitios.softwarelabs.cl
     ws.onopen = () => console.log("WebSocket conectado ✅")
 
