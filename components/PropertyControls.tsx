@@ -22,8 +22,6 @@ const PropertyControls = ({
     { value: "oldest", label: "Más antiguos" },
     { value: "price-low", label: "Precio: menor a mayor" },
     { value: "price-high", label: "Precio: mayor a menor" },
-    { value: "area-large", label: "Área: mayor a menor" },
-    { value: "area-small", label: "Área: menor a mayor" },
   ]
 
   return (

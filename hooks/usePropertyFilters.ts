@@ -35,15 +35,15 @@ export const usePropertyFilters = (properties: Property[]) => {
       if (filters.search) {
         const searchLower = filters.search.toLowerCase()
         const matchesTitle = property.title.toLowerCase().includes(searchLower)
-        const matchesLocation = property.location.toLowerCase().includes(searchLower)
+        const matchesLocation = property.region.toLowerCase().includes(searchLower)
         if (!matchesTitle && !matchesLocation) return false
       }
 
       // Type filter
-      if (filters.type && property.type !== filters.type) return false
+      if (filters.type && property.property_type !== filters.type) return false
 
       // Status filter
-      if (filters.status && property.status !== filters.status) return false
+      if (filters.status && property.operation !== filters.status) return false
 
       // Bedrooms filter
       if (filters.bedrooms && property.bedrooms < Number.parseInt(filters.bedrooms)) return false
@@ -65,17 +65,13 @@ export const usePropertyFilters = (properties: Property[]) => {
     filtered.sort((a, b) => {
       switch (sortBy) {
         case "newest":
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         case "oldest":
-          return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          return new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
         case "price-low":
           return a.price - b.price
         case "price-high":
           return b.price - a.price
-        case "area-large":
-          return b.area - a.area
-        case "area-small":
-          return a.area - b.area
         default:
           return 0
       }

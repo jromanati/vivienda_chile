@@ -71,18 +71,30 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
         </p>
 
         <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
-          <span className="flex items-center">
-            <span className="mr-1">🛏️</span>
-            {property.bedrooms} dorm
-          </span>
-          <span className="flex items-center">
-            <span className="mr-1">🚿</span>
-            {property.bathrooms} baños
-          </span>
-          <span className="flex items-center">
-            <span className="mr-1">📐</span>
-            {property.land_area}m²
-          </span>
+          {property.bedrooms > 0 && (
+            <span className="flex items-center">
+              <span className="mr-1">🛏️</span>
+              {property.bedrooms} dormitorios
+            </span>
+          )}
+          {property.bathrooms > 0 && (
+            <span className="flex items-center">
+              <span className="mr-1">🚿</span>
+              {property.bathrooms} baños
+            </span>
+          )}
+          {property.land_area > 0 && (
+            <span className="flex items-center" title="Superficie terreno">
+              <span className="mr-1">📐</span>
+              {property.land_area}m²
+            </span>
+          )}
+          {property.built_area > 0 && (
+            <span className="flex items-center" title="Superficie construida">
+              <span className="mr-1">🏠</span>
+              {property.built_area}m²
+            </span>
+          )}
         </div>
 
         <div className="flex items-center justify-between mt-auto">

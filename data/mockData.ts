@@ -26,9 +26,7 @@ export const properties: Property[] = [
         url: "/images/propiedades/las_condes2.png?height=400&width=600"
       },
     ],
-    videos: [
-      "/videos/propiedades/video_condes.mp4?height=600&width=800&text=Video+Tour+Casa",
-    ],
+    videos: "/videos/propiedades/video_condes.mp4?height=600&width=800&text=Video+Tour+Casa",
     features: ["Jardín privado", "Vista a la cordillera", "Cocina equipada", "Estacionamiento 2 autos"],
     createdAt: "2024-01-15",
   },

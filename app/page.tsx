@@ -3,30 +3,52 @@
 import Hero from "@/components/Hero"
 import { PropertyCard, ServiceCard } from "@/components/Card"
 import AnimatedSection from "@/components/AnimatedSection"
-import { properties, services, testimonials } from "@/data/mockData"
+import { services, testimonials } from "@/data/mockData"
 import Link from "next/link"
 import Image from "next/image"
 import { Star } from "lucide-react"
 import useAutoLogin from "@/hooks/useAutoLogin";
 // ...tus demás importaciones
 // import { useProperties } from "@/hooks/useProperties";
-import { useEffect } from "react";
+import { useState, useEffect, useCallback } from "react"
+import useSWR from "swr"
+import { useProperties, usePropertiesUpdates } from "@/hooks/useProperties"
 import Navbar from "@/components/Navbar";
+import type { Property } from "@/types"
 
 export default function Home() {
+  usePropertiesUpdates();
   useAutoLogin();
   const featuredServices = services
-  const featuredProperties = properties.slice(0, 3)
-  // const token = localStorage.getItem("token");
-  // const { data: properties, isLoading, isError } = useProperties(null);
-  // const featuredProperties = properties
-  //   ? properties.slice(0, 3)
-  //   : [];
-  // useEffect(() => {
-  //   if (!isLoading && !isError) {
-  //     console.log("properties2 →", properties);
-  //   }
-  // }, [properties, isLoading, isError]);
+  const { getProperties } = useProperties()
+  const asBool = (v: any) =>
+      v === true || v === 1 || v === "1" || v === "true";
+  
+    // Filtro genérico de propiedades
+    function filterProperties(
+      list: Property[],
+      opts: {
+        published?: boolean;
+        featured?: boolean;
+        minImages?: number;
+      } = {}
+    ) {
+      const { published, featured, minImages } = opts;
+  
+      return list.filter((p) => {
+        if (published !== undefined && asBool(p.published) !== published) return false;
+        if (featured !== undefined && asBool(p.featured) !== featured) return false;
+        if (minImages && !(Array.isArray(p.images) && p.images.length >= minImages)) return false;
+        return true;
+      });
+    }
+    const fetchedProperties = useCallback(async (): Promise<Property[]> => {
+      const propertiesResponse = await getProperties();
+      const list: Property[] = Array.isArray(propertiesResponse) ? propertiesResponse : [];
+      return filterProperties(list, { featured: true, minImages: 1 });
+    }, [getProperties]);
+    const { data: properties = [], isLoading } = useSWR('properties', fetchedProperties)
+    const featuredProperties = properties.slice(0, 3)
   return (
     <div className="min-h-screen">
       {/* Hero Section */}

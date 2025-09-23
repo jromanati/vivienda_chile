@@ -79,9 +79,8 @@ const PropertyFilters = ({ filters, onFiltersChange, onClearFilters }: PropertyF
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">Todos</option>
-              <option value="casa">Casa</option>
-              <option value="departamento">Departamento</option>
-              <option value="oficina">Oficina</option>
+              <option value="Casa">Casa</option>
+              <option value="Departamento">Departamento</option>
             </select>
           </div>
 
@@ -94,8 +93,8 @@ const PropertyFilters = ({ filters, onFiltersChange, onClearFilters }: PropertyF
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
               <option value="">Todos</option>
-              <option value="venta">En Venta</option>
-              <option value="arriendo">En Arriendo</option>
+              <option value="Venta">En Venta</option>
+              <option value="Arriendo">En Arriendo</option>
             </select>
           </div>
 
@@ -165,7 +164,7 @@ const PropertyFilters = ({ filters, onFiltersChange, onClearFilters }: PropertyF
             </select>
           </div>
 
-          <div>
+          {/* <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Ubicación</label>
             <select
               value={filters.location}
@@ -179,7 +178,7 @@ const PropertyFilters = ({ filters, onFiltersChange, onClearFilters }: PropertyF
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
         </div>
 
         {/* Clear Filters */}

@@ -194,7 +194,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center group">
             <div className="relative overflow-hidden rounded-xl">
-              <Image src="/logo.png" alt="Vivienda Chile" width={128} height={128} className="h-32 w-auto" />
+              <Image src="/logo.png" alt="Vivienda Chile" width={228} height={228} className="h-64 w-auto" />
             </div>
           </Link>
 

@@ -1,7 +1,8 @@
 // components/PropertiesClient.tsx
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
+import useSWR from "swr"
 import { useSearchParams } from "next/navigation"
 import { PropertyCard } from "@/components/Card"
 import PropertyListView from "@/components/PropertyListView"
@@ -9,17 +10,54 @@ import PropertyFilters from "@/components/PropertyFilters"
 import PropertyControls from "@/components/PropertyControls"
 import AnimatedSection from "@/components/AnimatedSection"
 import { usePropertyFilters } from "@/hooks/usePropertyFilters"
-// import { useProperties } from "@/hooks/useProperties"
-import { properties, services, testimonials } from "@/data/mockData"
+import { useProperties, usePropertiesUpdates } from "@/hooks/useProperties"
+// import {  properties } from "@/data/mockData"
 import type { Property } from "@/types"
+type CatalogPayload = {
+  products: any[]
+  categories: any[]
+  brands: any[]
+}
+type Media = { id: number; url: string; public_id: string };
+
 
 const PropertiesClient = () => {
+  usePropertiesUpdates()
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [hasAppliedUrlParams, setHasAppliedUrlParams] = useState(false)
   const searchParams = useSearchParams()
+  const { getProperties } = useProperties()
 
-  // React Query + WebSocket hook
-  // const { data: properties = [], isLoading, error } = useProperties(null)
+  // Normaliza booleanos que a veces vienen como "1"/"true"/1
+  const asBool = (v: any) =>
+    v === true || v === 1 || v === "1" || v === "true";
+
+  // Filtro genérico de propiedades
+  function filterProperties(
+    list: Property[],
+    opts: {
+      published?: boolean;
+      featured?: boolean;
+      minImages?: number;
+    } = {}
+  ) {
+    const { published, featured, minImages } = opts;
+
+    return list.filter((p) => {
+      if (published !== undefined && asBool(p.published) !== published) return false;
+      if (featured !== undefined && asBool(p.featured) !== featured) return false;
+      if (minImages && !(Array.isArray(p.images) && p.images.length >= minImages)) return false;
+      return true;
+    });
+  }
+  const fetchedProperties = useCallback(async (): Promise<Property[]> => {
+    const propertiesResponse = await getProperties();
+    console.log('propertiesResponse', propertiesResponse)
+    const list: Property[] = Array.isArray(propertiesResponse) ? propertiesResponse : [];
+    return filterProperties(list, { published: true, minImages: 1 });
+  }, [getProperties]);
+
+  const { data: properties = [], isLoading } = useSWR('properties', fetchedProperties)
 
   // Filtros y orden sobre datos
   const {
@@ -48,14 +86,14 @@ const PropertiesClient = () => {
   }, [searchParams, hasAppliedUrlParams, filters, setFilters])
 
   // Mostrar loader o error
-  // if (isLoading) {
-  //   return (
-  //     <div className="text-center py-12">
-  //       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
-  //       <p className="mt-4 text-gray-600">Cargando propiedades...</p>
-  //     </div>
-  //   )
-  // }
+  if (isLoading) {
+    return (
+      <div className="text-center py-12">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
+        <p className="mt-4 text-gray-600">Cargando propiedades...</p>
+      </div>
+    )
+  }
   // if (error) {
   //   return (
   //     <div className="text-center py-12 text-red-600">

@@ -26,11 +26,11 @@ export interface PropertyImage {
 
 interface PropertyGalleryProps {
   images: PropertyImage[]
-  videos?: string[]
+  video?: string
   title: string
 }
 
-const PropertyGallery = ({ images, videos = [], title }: PropertyGalleryProps) => {
+const PropertyGallery = ({ images= [], video , title }: PropertyGalleryProps) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalIndex, setModalIndex] = useState(0)
@@ -43,7 +43,7 @@ const PropertyGallery = ({ images, videos = [], title }: PropertyGalleryProps) =
   // Unimos imágenes y videos en un solo array de medios
   const allMedia = [
     ...images.map((img) => ({ type: "image" as const, src: img.url })),
-    ...videos.map((video) => ({ type: "video" as const, src: video })),
+    ...video ? [{ type: "video" as const, src: video }] : [],
   ]
 
   const currentMedia = allMedia[currentIndex]

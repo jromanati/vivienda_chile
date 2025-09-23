@@ -1,8 +1,7 @@
 // components/PropertyDetailClient.tsx
 "use client"
 
-import { useEffect } from "react"
-// import { useProperties } from "@/hooks/useProperties"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Breadcrumbs from "@/components/Breadcrumbs"
 import ContactForm from "@/components/ContactForm"
@@ -10,39 +9,45 @@ import PropertyGallery from "@/components/PropertyGallery"
 import type { Property } from "@/types"
 import Navbar from "@/components/Navbar";
 import { properties, services, testimonials } from "@/data/mockData"
+import { Card, CardContent } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { usePropertiesUpdates } from "@/hooks/useProperties"
 
 interface Props {
   id: string
 }
 
 export default function PropertyDetailClient({ id }: Props) {
+  usePropertiesUpdates()
   const router = useRouter()
-  // const { data: properties, isLoading, error } = useProperties(null)
-
-  // Si hay error al cargar las propiedades
-  // if (error) {
-  //   return (
-  //     <div className="text-center py-12 text-red-600">
-  //       Error cargando propiedad
-  //     </div>
-  //   )
-  // }
-
-  // Mientras carga, muestro spinner
-  // if (isLoading || !properties) {
-  //   return (
-  //     <div className="text-center py-12">
-  //       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
-  //       <p className="mt-4 text-gray-600">Cargando propiedad...</p>
-  //     </div>
-  //   )
-  // }
-
-  // Una vez que tenemos datos, buscamos la propiedad
-  // console.log(id)
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    const raw = localStorage.getItem("properties");
+    if (!raw) {
+      setProperties([]);
+      setIsLoading(false);
+      return;
+    }
+    try {
+      const parsed: Property[] = JSON.parse(raw);
+      setProperties(Array.isArray(parsed) ? parsed : []);
+    } catch (e) {
+      console.error("JSON inválido en localStorage(properties):", e);
+      setProperties([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+  if (isLoading || !properties) {
+    return (
+      <div className="text-center py-12">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto" />
+        <p className="mt-4 text-gray-600">Cargando propiedad...</p>
+      </div>
+    )
+  }
   const property = properties.find((p: Property) => p.id.toString() === id)
-
-  // Si no existe, redirijo al 404
   if (!property) {
     useEffect(() => {
       router.replace("/404")
@@ -76,7 +81,7 @@ export default function PropertyDetailClient({ id }: Props) {
             <div className="mb-8">
               <PropertyGallery
                 images={property.images}
-                videos={property.videos || []}
+                video={property.video_url || []}
                 title={property.title}
               />
             </div>
@@ -107,35 +112,137 @@ export default function PropertyDetailClient({ id }: Props) {
 
               {/* Características */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl mb-2">🛏️</div>
-                  <div className="font-semibold">{property.bedrooms}</div>
-                  <div className="text-sm text-gray-600">Dormitorios</div>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl mb-2">🚿</div>
-                  <div className="font-semibold">{property.bathrooms}</div>
-                  <div className="text-sm text-gray-600">Baños</div>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl mb-2">📐</div>
-                  <div className="font-semibold">{property.area}m²</div>
-                  <div className="text-sm text-gray-600">Superficie</div>
-                </div>
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="text-2xl mb-2">🏠</div>
-                  <div className="font-semibold capitalize">{property.type}</div>
-                  <div className="text-sm text-gray-600">Tipo</div>
-                </div>
+                {property.bedrooms > 0 && (
+                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                    <div className="text-2xl mb-2">🛏️</div>
+                    <div className="font-semibold">{property.bedrooms}</div>
+                    <div className="text-sm text-gray-600">Dormitorios</div>
+                  </div>
+                )}
+                {property.bathrooms > 0 && (
+                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                    <div className="text-2xl mb-2">🚿</div>
+                    <div className="font-semibold">{property.bathrooms}</div>
+                    <div className="text-sm text-gray-600">Baños</div>
+                  </div>
+                )}
+                {property.parking && (
+                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                    <div className="text-2xl mb-2">🚗</div>
+                    <div className="font-semibold">
+                      {property.parking}
+                    </div>
+                    <div className="text-sm text-gray-600">Estacionamiento</div>
+                  </div>
+                )}
+                {property.land_area > 0 && (
+                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                    <div className="text-2xl mb-2">📐</div>
+                    <div className="font-semibold">{property.land_area}m²</div>
+                    <div className="text-sm text-gray-600">Superficie terreno</div>
+                  </div>
+                )}
+                {property.built_area > 0 && (
+                  <div className="text-center p-4 bg-gray-50 rounded-lg">
+                    <div className="text-2xl mb-2">🏠</div>
+                    <div className="font-semibold">{property.built_area} m²</div>
+                    <div className="text-sm text-gray-600">Superficie construida</div>
+                  </div>
+                )}
               </div>
+              <Tabs defaultValue="description" className="mb-16">
+                <TabsList className="grid w-full grid-cols-4 bg-gray-100 border">
+                  <TabsTrigger value="description" className="data-[state=active]:bg-blue-100">
+                    Descripción
+                  </TabsTrigger>
+                  {property.characteristics && (
+                    <TabsTrigger value="characteristics" className="data-[state=active]:bg-blue-100">
+                      Características
+                    </TabsTrigger>
+                  )}
+                  {property.amenities && (
+                    <TabsTrigger value="amenities" className="data-[state=active]:bg-blue-100">
+                      Amenidades
+                    </TabsTrigger>
+                  )}
+                  {property.water && (
+                    <TabsTrigger value="water" className="data-[state=active]:bg-blue-100">
+                      Agua
+                    </TabsTrigger>
+                  )}
+                </TabsList>
 
-              {/* Descripción */}
-              <div className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">Descripción</h2>
-                <p className="text-gray-700 leading-relaxed">
-                  {property.description}
-                </p>
-              </div>
+                <TabsContent value="description" className="mt-6">
+                  <Card className="bg-gray-100">
+                    <CardContent className="p-8">
+                      <h3 className="text-2xl font-bold text-blue-900 mb-6">Descripción</h3>
+                      <p className="text-gray-900 text-lg leading-relaxed mb-6">{property.description}</p>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+                {property.characteristics && (
+                  <TabsContent value="characteristics" className="mt-6">
+                    <Card className="bg-gray-100">
+                      <CardContent className="p-8">
+                        <h3 className="text-2xl font-bold text-blue-900 mb-6">Características</h3>
+                        <p className="text-gray-900 text-lg leading-relaxed mb-6">
+                          {property.characteristics}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                )}
+                {property.amenities && (
+                  <TabsContent value="amenities" className="mt-6">
+                    <Card className="bg-gray-100">
+                      <CardContent className="p-8">
+                        <h3 className="text-2xl font-bold text-blue-900 mb-6">Amenidades</h3>
+                        <p className="text-gray-900 text-lg leading-relaxed mb-6">
+                          {property.amenities}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                )}
+                {property.water && (
+                  <TabsContent value="water" className="mt-6">
+                    <Card className="bg-gray-100">
+                      <CardContent className="p-8">
+                        <h3 className="text-2xl font-bold text-blue-900 mb-6">Agua</h3>
+                        <p className="text-gray-900 text-lg leading-relaxed mb-6">
+                          {property.water}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                )}
+              </Tabs>
+              
+              {property.amenities && (
+                <div className="mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">Amenidades</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <div className="flex items-center">
+                        <span>{property.amenities}</span>
+                      </div>
+                    </div>
+                </div>
+              )}
+              {/* {property.water && (
+                <div className="mb-8">
+                  <h2 className="text-2xl font-semibold mb-4">Características</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <div className="flex items-center">
+                        <span className="mr-2 text-primary-500">✓</span>
+                        <span>{property.characteristics}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <span className="mr-2 text-primary-500">✓</span>
+                        <span>{property.water}</span>
+                      </div>
+                    </div>
+                </div>
+              )} */}
 
               {/* Ubicación */}
               {property.show_map && (

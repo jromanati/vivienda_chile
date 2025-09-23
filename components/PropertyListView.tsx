@@ -71,20 +71,31 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
                     <span className="mr-2">📍</span>
                     {`${property.region}, ${property.commune}`}
                   </p>
-
                   <div className="flex items-center gap-6 mb-4 text-sm text-gray-600">
-                    <span className="flex items-center">
-                      <span className="mr-1">🛏️</span>
-                      {property.bedrooms} dormitorios
-                    </span>
-                    <span className="flex items-center">
-                      <span className="mr-1">🚿</span>
-                      {property.bathrooms} baños
-                    </span>
-                    <span className="flex items-center">
-                      <span className="mr-1">📐</span>
-                      {property.built_area}m²
-                    </span>
+                    {property.bedrooms > 0 && (
+                      <span className="flex items-center">
+                        <span className="mr-1">🛏️</span>
+                        {property.bedrooms} dormitorios
+                      </span>
+                    )}
+                    {property.bathrooms > 0 && (
+                      <span className="flex items-center">
+                        <span className="mr-1">🚿</span>
+                        {property.bathrooms} baños
+                      </span>
+                    )}
+                    {property.land_area > 0 && (
+                      <span className="flex items-center">
+                        <span className="mr-1">📐</span>
+                        {property.land_area}m²
+                      </span>
+                    )}
+                    {property.built_area > 0 && (
+                      <span className="flex items-center">
+                        <span className="mr-1">🏠</span>
+                        {property.built_area}m²
+                      </span>
+                    )}
                   </div>
 
                   {/* Features */}
