@@ -16,9 +16,11 @@ export const usePropertiesUpdates = () => {
   useEffect(() => {
     // Construye URL según http/https para evitar mixed content
     const proto = location.protocol === "https:" ? "wss" : "ws"
+    console.log('proto', proto)
     // local
     // const ws = new WebSocket(`${proto}://viviendachile.localhost:8000/ws/properties/`)
-    const ws = new WebSocket(`https://viviendachile.sitios.softwarelabs.cl/wss/properties/`)
+    const ws = new WebSocket(`${proto}://viviendachile.sitios.softwarelabs.cl/ws/properties/`)
+    // const ws = new WebSocket(`https://viviendachile.sitios.softwarelabs.cl/wss/properties/`)
     // viviendachile.sitios.softwarelabs.cl
     ws.onopen = () => console.log("WebSocket conectado ✅")
 
