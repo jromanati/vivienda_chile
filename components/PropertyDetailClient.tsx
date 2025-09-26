@@ -176,7 +176,13 @@ export default function PropertyDetailClient({ id }: Props) {
                   <Card className="bg-gray-100">
                     <CardContent className="p-8">
                       <h3 className="text-2xl font-bold text-blue-900 mb-6">Descripción</h3>
-                      <p className="text-gray-900 text-lg leading-relaxed mb-6">{property.description}</p>
+                      <p
+                        className="text-gray-900 text-lg leading-relaxed mb-6"
+                        style={{ whiteSpace: "pre-line" }}
+                      >
+                        {property.description}
+                      </p>
+
                     </CardContent>
                   </Card>
                 </TabsContent>
