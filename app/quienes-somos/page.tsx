@@ -97,11 +97,11 @@ simplificando la venta, compra o arriendo de tu propiedad.
             <AnimatedSection animation="fade-right">
               <div className="relative">
                 <Image
-                  src="/images/quienes_somos.jpg?height=500&width=600&text=Historia+Vivienda+Chile"
+                  src="/images/quienes_somos.png?height=500&width=600&text=Historia+Vivienda+Chile"
                   alt="Historia de Vivienda Chile"
                   width={600}
                   height={500}
-                  className="rounded-2xl shadow-xl"
+                  className="rounded-2xl drop-shadow-lg"
                 />
                 
               </div>

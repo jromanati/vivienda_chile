@@ -19,6 +19,7 @@ const Hero = ({
   ctaLink = "/propiedades",
   backgroundImages = [
     "/images/quinta_region.png?height=600&width=1200&text=Casa+Playa+Viña+del+Mar",
+    "/images/sexta_region.png?height=600&width=1200&text=Casa+Playa+Viña+del+Mar",
     "/images/santiago.png?height=600&width=1200&text=Casa+Moderna+Santiago",
   ],
 }: HeroProps) => {

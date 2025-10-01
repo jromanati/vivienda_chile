@@ -56,12 +56,19 @@ export default function PropertyDetailClient({ id }: Props) {
   }
 
   // Formateador de precio
-  const formatPrice = (price: number) =>
-    new Intl.NumberFormat("es-CL", {
+  const formatPrice = (price: number, currency: "CLP" | "USD" | "UF" = "CLP") => {
+    // cuenta decimales del número sin forzar 2
+    const s = String(price)
+    const dot = s.indexOf(".")
+    const decimals = dot === -1 ? 0 : Math.min(2, s.length - dot - 1)
+
+    return new Intl.NumberFormat("es-CL", {
       style: "currency",
-      currency: "CLP",
-      minimumFractionDigits: 0,
+      currency,
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals, // respeta exactamente los que vengan
     }).format(price)
+  }
 
   const breadcrumbItems = [
     { label: "Propiedades", href: "/propiedades" },

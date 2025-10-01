@@ -7,25 +7,107 @@ interface PropertyListViewProps {
 }
 
 const PropertyListView = ({ properties }: PropertyListViewProps) => {
-  const formatPrice = (price: number) => {
+  type Currency = "CLP" | "USD" | "UF"
+
+  /** Convierte a número detectando correctamente el separador decimal:
+   * - "2000000.00"  -> 2000000   (punto decimal)
+   * - "1.234,56"    -> 1234.56   (formato chileno)
+   * - "15,5" / "15.5" -> 15.5
+   */
+  const toNumberSmart = (v: number | string, currency: Currency) => {
+    if (typeof v === "number") return v
+    const s = String(v || "").trim()
+    if (!s) return 0
+
+    // Caso: solo punto y actúa como decimal (p. ej. "2000000.00", "15.5")
+    const isDotDecimal = !s.includes(",") && /^\d+\.\d{1,6}$/.test(s)
+    if (isDotDecimal) return Number(s)
+
+    // Regla chilena: "." miles, "," decimal
+    const normalized = s.replace(/\./g, "").replace(",", ".")
+    const n = Number(normalized)
+    return Number.isFinite(n) ? n : 0
+  }
+
+  /** Cuenta los decimales del valor de entrada para respetarlos en la salida (máx 2) */
+  const countInputDecimals = (v: number | string) => {
+    if (typeof v === "number") {
+      const s = String(v)
+      const i = s.indexOf(".")
+      return i === -1 ? 0 : Math.min(2, s.length - i - 1)
+    }
+    const s = String(v)
+    // "2000000.00" → 2 ; "15.5" → 1
+    if (!s.includes(",") && /^\d+\.\d{1,6}$/.test(s)) return Math.min(s.split(".")[1].length, 2)
+    // "1.234,56" → 2 ; "15,5" → 1
+    return Math.min((s.split(",")[1]?.length ?? 0), 2)
+  }
+  const formatPrice = (
+    value: number | string,
+    currency: Currency = "CLP",
+    opts: {
+      decimals?: number | "auto"
+      showCode?: boolean
+      codePosition?: "prefix" | "suffix"
+      inputMinorUnitFactor?: number
+    } = {}
+  ) => {
+    const {
+      decimals = "auto",
+      showCode = true,
+      codePosition = "prefix",
+      inputMinorUnitFactor,
+    } = opts
+
+    let nRaw = toNumberSmart(value, currency)
+
+    // 🔎 Corrección automática común: CLP en centavos (x100)
+    // Si no especificaste inputMinorUnitFactor, intentamos detectar el caso típico:
+    // entero grande, divisible por 100, sin separadores en el string de origen,
+    // y en un rango razonable (>= 100.000.000).
+    if (currency === "CLP") {
+      const s = typeof value === "string" ? value.trim() : ""
+      const looksPlainIntegerString = s && /^[0-9]+$/.test(s)
+      const autoLooksLikeCents =
+        inputMinorUnitFactor == null &&
+        Number.isInteger(nRaw) &&
+        nRaw % 100 === 0 &&
+        nRaw >= 100_000_000 && // 100 millones
+        (looksPlainIntegerString || typeof value === "number")
+
+      const factor = inputMinorUnitFactor ?? (autoLooksLikeCents ? 100 : 1)
+      if (factor !== 1) nRaw = nRaw / factor
+    }
+
+    const decs = decimals === "auto" ? countInputDecimals(value) : decimals
+
+    if (currency === "UF") {
+      const nf = new Intl.NumberFormat("es-CL", {
+        style: "currency",
+        currency: "CLF",
+        currencyDisplay: "code",
+        minimumFractionDigits: decs,
+        maximumFractionDigits: decs,
+      })
+      const parts = nf.formatToParts(nRaw)
+      const numberOnly = parts
+        .filter((p) => p.type !== "currency")
+        .map((p) => p.value)
+        .join("")
+        .trim()
+
+      if (!showCode) return numberOnly
+      return codePosition === "suffix" ? `${numberOnly} UF` : `UF ${numberOnly}`
+    }
+
+    // CLP / USD
     return new Intl.NumberFormat("es-CL", {
       style: "currency",
-      currency: "CLP",
-      minimumFractionDigits: 0,
-    }).format(price)
+      currency,
+      minimumFractionDigits: decs,
+      maximumFractionDigits: decs,
+    }).format(nRaw)
   }
-  // const firstImageUrl = property.images?.[0]?.url ?? "/placeholder.svg";
-  // const locationLabel = `${property.region}, ${property.commune}`;
-  // const areaLabel =
-  //   property.built_area != null
-  //     ? `${property.built_area} m² (construida)`
-  //     : property.land_area != null
-  //     ? `${property.land_area} m² (terreno)`
-  //     : "-";
-
-  // // 4) Estado de la propiedad: operación
-  // const statusLabel =
-  //   property.operation === "En venta" ? "En Venta" : "En Arriendo";
 
   return (
     <div className="space-y-6">
@@ -46,14 +128,16 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
               <div className="absolute top-4 left-4">
                 <span
                   className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    property.operation === "En venta" ? "bg-green-100 text-green-800" : "bg-blue-100 text-blue-800"
+                    property.operation === "En venta"
+                      ? "bg-green-100 text-green-800"
+                      : "bg-blue-100 text-blue-800"
                   }`}
                 >
                   {property.operation === "En venta" ? "En Venta" : "En Arriendo"}
                 </span>
               </div>
               <div className="absolute top-4 right-4">
-                <span className="bg-white bg-opacity-90 px-2 py-1 rounded text-sm font-medium text-gray-800">
+                <span className="bg-white/90 px-2 py-1 rounded text-sm font-medium text-gray-800">
                   {property.property_type.charAt(0).toUpperCase() + property.property_type.slice(1)}
                 </span>
               </div>
@@ -97,27 +181,18 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
                       </span>
                     )}
                   </div>
-
-                  {/* Features */}
-                  {/* <div className="mb-4">
-                    <div className="flex flex-wrap gap-2">
-                      {property.features.slice(0, 3).map((feature, index) => (
-                        <span key={index} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
-                          {feature}
-                        </span>
-                      ))}
-                      {property.features.length > 3 && (
-                        <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">
-                          +{property.features.length - 3} más
-                        </span>
-                      )}
-                    </div>
-                  </div> */}
                 </div>
 
                 {/* Price and Action */}
                 <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-primary">{formatPrice(property.price)}</span>
+                  <span className="text-2xl font-bold text-primary">
+                    {formatPrice(
+                      property.price ?? 0,
+                      (property.currency as Currency) || "CLP",
+                      // 👉 Si SABES que tus CLP vienen en centavos, fuerza esto:
+                      // { inputMinorUnitFactor: 100 }
+                    )}
+                  </span>
                   <Link href={`/propiedades/${property.id}`} className="btn-elegant">
                     Ver Detalles
                   </Link>
