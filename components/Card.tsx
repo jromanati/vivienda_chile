@@ -123,7 +123,7 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
 
   // 4) Estado de la propiedad: operación
   const statusLabel =
-    property.operation === "En venta" ? "En Venta" : "En Arriendo";
+    property.operation === "Venta" ? "En Venta" : "En Arriendo";
 
   return (
     <div className="card-uniform group">
@@ -137,7 +137,7 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
         <div className="absolute top-4 left-4">
           <span
             className={`px-3 py-1 rounded-full text-sm font-medium ${
-              property.operation === "En venta"
+              property.operation === "Venta"
                 ? "bg-green-100 text-green-800"
                 : "bg-blue-100 text-blue-800"
             }`}

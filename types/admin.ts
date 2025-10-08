@@ -42,8 +42,8 @@ export interface AdminProperty {
 }
 
 export enum OperationEnum {
-  VENTA = "En venta",
-  ARRIENDO = "En arriendo",
+  VENTA = "Venta",
+  ARRIENDO = "Arriendo",
 }
 
 export enum StateEnum {

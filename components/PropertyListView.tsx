@@ -128,12 +128,12 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
               <div className="absolute top-4 left-4">
                 <span
                   className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    property.operation === "En venta"
+                    property.operation === "Venta"
                       ? "bg-green-100 text-green-800"
                       : "bg-blue-100 text-blue-800"
                   }`}
                 >
-                  {property.operation === "En venta" ? "En Venta" : "En Arriendo"}
+                  {property.operation === "Venta" ? "En Venta" : "En Arriendo"}
                 </span>
               </div>
               <div className="absolute top-4 right-4">
