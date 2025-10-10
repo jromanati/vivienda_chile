@@ -177,7 +177,7 @@ export default function PropertyDetailClient({ id }: { id: number }) {
             <h2 className="text-lg font-semibold text-gray-900 mb-4">Características</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium text-gray-500">Dormitorios</label>
+                <label className="text-sm font-medium text-gray-500">Habitaciones</label>
                 <p className="text-gray-900">{(property as any).bedrooms ?? "No especificado"}</p>
               </div>
               <div>

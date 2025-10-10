@@ -123,7 +123,7 @@ export default function PropertyDetailPage({ params }: Props) {
 //                 <div className="text-center p-4 bg-gray-50 rounded-lg">
 //                   <div className="text-2xl mb-2">🛏️</div>
 //                   <div className="font-semibold">{property.bedrooms}</div>
-//                   <div className="text-sm text-gray-600">Dormitorios</div>
+//                   <div className="text-sm text-gray-600">Habitaciones</div>
 //                 </div>
 //                 <div className="text-center p-4 bg-gray-50 rounded-lg">
 //                   <div className="text-2xl mb-2">🚿</div>

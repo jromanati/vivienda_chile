@@ -100,7 +100,7 @@ const PropertyFilters = ({ filters, onFiltersChange, onClearFilters }: PropertyF
 
           {/* Bedrooms */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Dormitorios</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Habitaciones</label>
             <select
               value={filters.bedrooms}
               onChange={(e) => handleFilterChange("bedrooms", e.target.value)}

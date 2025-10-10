@@ -159,7 +159,7 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
                     {property.bedrooms > 0 && (
                       <span className="flex items-center">
                         <span className="mr-1">🛏️</span>
-                        {property.bedrooms} dormitorios
+                        {property.bedrooms} Habitaciones
                       </span>
                     )}
                     {property.bathrooms > 0 && (

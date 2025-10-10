@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import type { Property, Service } from "@/types"
+import { Boxes, Archive, Package } from "lucide-react"
 
 interface PropertyCardProps {
   property: Property
@@ -125,6 +126,16 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
   const statusLabel =
     property.operation === "Venta" ? "En Venta" : "En Arriendo";
 
+  const truncateChars = (text: string | undefined, max = 120) => {
+    if (!text) return ""
+    const s = text.trim()
+    if (s.length <= max) return s
+    const cut = s.slice(0, max)
+    // evita cortar palabras si es posible
+    const safe = cut.lastIndexOf(" ") > max * 0.6 ? cut.slice(0, cut.lastIndexOf(" ")) : cut
+    return safe + "…"
+  }
+
   return (
     <div className="card-uniform group">
       <div className="relative h-48 overflow-hidden flex-shrink-0">
@@ -156,8 +167,11 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
         <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors duration-200 min-h-[3.5rem] flex items-start">
           {property.title}
         </h3>
-        <p className="text-gray-600 mb-3 text-sm leading-relaxed min-h-[2.5rem] line-clamp-2 flex-grow">
-          {property.description}
+        <p
+          className="text-gray-600 mb-3 text-sm leading-relaxed min-h-[2.5rem] line-clamp-2 flex-grow"
+          title={property.description}
+        >
+          {truncateChars(property.description, 190)}
         </p>
         <p className="text-gray-500 mb-3 flex items-center text-sm">
           <span className="mr-2">📍</span>
@@ -168,13 +182,13 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
           {property.bedrooms > 0 && (
             <span className="flex items-center">
               <span className="mr-1">🛏️</span>
-              {property.bedrooms} dormitorios
+              {property.bedrooms} Habitaciones
             </span>
           )}
           {property.bathrooms > 0 && (
             <span className="flex items-center">
               <span className="mr-1">🚿</span>
-              {property.bathrooms} baños
+              {property.bathrooms} Baños
             </span>
           )}
           {property.land_area > 0 && (
@@ -190,6 +204,14 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
             </span>
           )}
         </div>
+        {property.storage && (
+          <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
+            <span className="flex items-center">
+              <Package className="h-6 w-6 mx-auto text-gray-700" aria-hidden="true" />
+              <span className="mx-2">Bodega</span>
+            </span>
+          </div>
+        )}
 
         <div className="flex items-center justify-between mt-auto">
           <span className="text-xl font-bold text-primary">

@@ -287,7 +287,7 @@ const PropertyFormComponent = ({ initialData, onSubmit, onCancel, isLoading = fa
         {/* Características */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Dormitorios</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Habitaciones</label>
             <input
               type="number"
               {...register("bedrooms", { min: 0 })}
