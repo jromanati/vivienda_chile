@@ -30,6 +30,7 @@ export const usePropertyFilters = (properties: Property[]) => {
   const [sortBy, setSortBy] = useState("newest")
 
   const filteredAndSortedProperties = useMemo(() => {
+    console.log('properties', properties)
     const filtered = properties.filter((property) => {
       // Search filter
       if (filters.search) {
@@ -37,6 +38,15 @@ export const usePropertyFilters = (properties: Property[]) => {
         const matchesTitle = property.title.toLowerCase().includes(searchLower)
         const matchesLocation = property.region.toLowerCase().includes(searchLower)
         if (!matchesTitle && !matchesLocation) return false
+      }
+      if (filters.type ==='all') {
+        filters.type = '';
+      }
+      console.log(filters.type)
+
+      if (filters.type && property.property_type !== filters.type && filters.type !=='all') {
+        console.log("entro");
+        return false
       }
 
       // Type filter
@@ -57,7 +67,6 @@ export const usePropertyFilters = (properties: Property[]) => {
       // Price filters
       if (filters.minPrice && property.price < Number.parseInt(filters.minPrice)) return false
       if (filters.maxPrice && property.price > Number.parseInt(filters.maxPrice)) return false
-
       return true
     })
 

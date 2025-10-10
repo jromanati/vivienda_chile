@@ -12,7 +12,7 @@ import { properties, services, testimonials } from "@/data/mockData"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { usePropertiesUpdates } from "@/hooks/useProperties"
-import { Boxes, Archive, Package } from "lucide-react"
+import { Boxes, Archive, Package, XCircle, Check, CheckCircle } from "lucide-react"
 interface Props {
   id: string
 }
@@ -205,56 +205,47 @@ export default function PropertyDetailClient({ id }: Props) {
                 {formatPrice(
                   property.price ?? 0,
                   (property.currency as Currency) || "CLP",
-                  // 👉 Si SABES que tus CLP vienen en centavos, fuerza esto:
-                  // { inputMinorUnitFactor: 100 }
                 )}
               </div>
 
               {/* Características */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                {property.bedrooms > 0 && (
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <div className="text-2xl mb-2">🛏️</div>
-                    <div className="font-semibold">{property.bedrooms}</div>
-                    <div className="text-sm text-gray-600">Habitaciones</div>
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-2xl mb-2">🛏️</div>
+                  <div className="font-semibold">{property.bedrooms}</div>
+                  <div className="text-sm text-gray-600">Habitaciones</div>
+                </div>
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-2xl mb-2">🚿</div>
+                  <div className="font-semibold">{property.bathrooms}</div>
+                  <div className="text-sm text-gray-600">Baños</div>
+                </div>
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-2xl mb-2">🚗</div>
+                  <div className="font-semibold">
+                    {property.parking}
                   </div>
-                )}
-                {property.bathrooms > 0 && (
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <div className="text-2xl mb-2">🚿</div>
-                    <div className="font-semibold">{property.bathrooms}</div>
-                    <div className="text-sm text-gray-600">Baños</div>
-                  </div>
-                )}
-                {property.parking && (
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <div className="text-2xl mb-2">🚗</div>
-                    <div className="font-semibold">
-                      {property.parking}
-                    </div>
-                    <div className="text-sm text-gray-600">Estacionamiento</div>
-                  </div>
-                )}
-                {property.land_area > 0 && (
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <div className="text-2xl mb-2">📐</div>
-                    <div className="font-semibold">{property.land_area}m²</div>
-                    <div className="text-sm text-gray-600">Superficie terreno</div>
-                  </div>
-                )}
-                {property.built_area > 0 && (
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <div className="text-2xl mb-2">🏠</div>
-                    <div className="font-semibold">{property.built_area} m²</div>
-                    <div className="text-sm text-gray-600">Superficie construida</div>
-                  </div>
-                )}
-                {property.storage && (
-                  <div className="text-center p-4 bg-gray-50 rounded-lg">
-                    <Package className="h-6 w-6 mx-auto text-gray-700" aria-hidden="true" />
-                    <div className="text-sm text-gray-600">Bodega</div>
-                  </div>
-                )}
+                  <div className="text-sm text-gray-600">Estacionamiento</div>
+                </div>
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-2xl mb-2">📐</div>
+                  <div className="font-semibold">{property.land_area}m²</div>
+                  <div className="text-sm text-gray-600">Superficie terreno</div>
+                </div>
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="text-2xl mb-2">🏠</div>
+                  <div className="font-semibold">{property.built_area} m²</div>
+                  <div className="text-sm text-gray-600">Superficie construida</div>
+                </div>
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <Package className="h-6 w-6 mx-auto text-gray-700 mb-3" aria-hidden="true" />
+                  {property.storage ? (
+                    <CheckCircle className="h-5 w-5 mx-auto text-gray-700 mb-1" aria-hidden="true" />
+                  ) : (
+                    <XCircle className="h-5 w-5 mx-auto text-gray-700 mb-1" aria-hidden="true" />
+                  )}
+                  <div className="text-sm text-gray-600">Bodega</div>
+                </div>
               </div>
               <Tabs defaultValue="description" className="mb-16">
                 <TabsList className="grid w-full grid-cols-4 bg-gray-100 border">

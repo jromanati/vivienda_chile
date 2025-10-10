@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Search, Filter, X } from "lucide-react"
-
+import { PropertyTypeEnum} from "@/types/products"
 interface FilterState {
   search: string
   type: string
@@ -78,9 +78,10 @@ const PropertyFilters = ({ filters, onFiltersChange, onClearFilters }: PropertyF
               onChange={(e) => handleFilterChange("type", e.target.value)}
               className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             >
-              <option value="">Todos</option>
-              <option value="Casa">Casa</option>
-              <option value="Departamento">Departamento</option>
+              <option value="all">Todos los tipos</option>
+              {Object.entries(PropertyTypeEnum).map(([key, label]) => (
+                <option key={key} value={label}>{label}</option>
+              ))}
             </select>
           </div>
 

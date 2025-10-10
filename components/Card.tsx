@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import type { Property, Service } from "@/types"
-import { Boxes, Archive, Package } from "lucide-react"
+import { Boxes, XCircle, Package, CheckCircle } from "lucide-react"
 
 interface PropertyCardProps {
   property: Property
@@ -179,39 +179,35 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
         </p>
 
         <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
-          {property.bedrooms > 0 && (
-            <span className="flex items-center">
-              <span className="mr-1">🛏️</span>
-              {property.bedrooms} Habitaciones
-            </span>
-          )}
-          {property.bathrooms > 0 && (
-            <span className="flex items-center">
-              <span className="mr-1">🚿</span>
-              {property.bathrooms} Baños
-            </span>
-          )}
-          {property.land_area > 0 && (
-            <span className="flex items-center" title="Superficie terreno">
-              <span className="mr-1">📐</span>
-              {property.land_area}m²
-            </span>
-          )}
-          {property.built_area > 0 && (
-            <span className="flex items-center" title="Superficie construida">
-              <span className="mr-1">🏠</span>
-              {property.built_area}m²
-            </span>
-          )}
+          <span className="flex items-center">
+            <span className="mr-1">🛏️</span>
+            {property.bedrooms} Habitaciones
+          </span>
+          <span className="flex items-center">
+            <span className="mr-1">🚿</span>
+            {property.bathrooms} Baños
+          </span>
+          <span className="flex items-center" title="Superficie terreno">
+            <span className="mr-1">📐</span>
+            {property.land_area}m²
+          </span>
+          <span className="flex items-center" title="Superficie construida">
+            <span className="mr-1">🏠</span>
+            {property.built_area}m²
+          </span>
         </div>
-        {property.storage && (
+        
           <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
             <span className="flex items-center">
-              <Package className="h-6 w-6 mx-auto text-gray-700" aria-hidden="true" />
+              <Package className="h-4 w-4 mx-auto text-gray-700" aria-hidden="true" />
               <span className="mx-2">Bodega</span>
+              {property.storage ? (
+                <CheckCircle className="h-4 w-4 mx-auto text-gray-700" aria-hidden="true" />
+              ) : (
+                <XCircle className="h-4 w-4 mx-auto text-gray-700" aria-hidden="true" />
+              )}
             </span>
           </div>
-        )}
 
         <div className="flex items-center justify-between mt-auto">
           <span className="text-xl font-bold text-primary">

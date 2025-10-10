@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import type { Property } from "@/types"
+import { Package, CheckCircle, XCircle } from "lucide-react"
 
 interface PropertyListViewProps {
   properties: Property[]
@@ -156,30 +157,31 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
                     {`${property.region}, ${property.commune}`}
                   </p>
                   <div className="flex items-center gap-6 mb-4 text-sm text-gray-600">
-                    {property.bedrooms > 0 && (
-                      <span className="flex items-center">
-                        <span className="mr-1">🛏️</span>
-                        {property.bedrooms} Habitaciones
-                      </span>
-                    )}
-                    {property.bathrooms > 0 && (
-                      <span className="flex items-center">
-                        <span className="mr-1">🚿</span>
-                        {property.bathrooms} baños
-                      </span>
-                    )}
-                    {property.land_area > 0 && (
-                      <span className="flex items-center">
-                        <span className="mr-1">📐</span>
-                        {property.land_area}m²
-                      </span>
-                    )}
-                    {property.built_area > 0 && (
-                      <span className="flex items-center">
-                        <span className="mr-1">🏠</span>
-                        {property.built_area}m²
-                      </span>
-                    )}
+                    <span className="flex items-center">
+                      <span className="mr-1">🛏️</span>
+                      {property.bedrooms} Habitaciones
+                    </span>
+                    <span className="flex items-center">
+                      <span className="mr-1">🚿</span>
+                      {property.bathrooms} baños
+                    </span>
+                    <span className="flex items-center">
+                      <span className="mr-1">📐</span>
+                      {property.land_area}m²
+                    </span>
+                    <span className="flex items-center">
+                      <span className="mr-1">🏠</span>
+                      {property.built_area}m²
+                    </span>
+                    <span className="flex items-center">
+                      <Package className="h-4 w-4 mx-auto text-gray-700" aria-hidden="true" />
+                      <span className="mx-2">Bodega</span>
+                      {property.storage ? (
+                        <CheckCircle className="h-4 w-4 mx-auto text-gray-700" aria-hidden="true" />
+                      ) : (
+                        <XCircle className="h-4 w-4 mx-auto text-gray-700" aria-hidden="true" />
+                      )}
+                    </span>
                   </div>
                 </div>
 

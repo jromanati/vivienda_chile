@@ -51,3 +51,18 @@ export interface ProductResponse extends Product {
   images?: ProductImage[]
   features: ProductFeatureGroup[]
 }
+
+export enum PropertyTypeEnum {
+  CASA = "Casa",
+  DEPARTAMENTO = "Departamento",
+  DEPARTAMENTO_AMOBLADO = "Departamento amoblado",
+  COMERCIAL = "Comercial",              // 👈 value del back
+  NEGOCIO = "Negocio",
+  OFICINA = "Oficina",
+  PARCELA = "Parcela",
+  RESIDENCIAL = "Residencial",          // 👈 igual que el back (si fue typo, así lo reflejamos)
+  PROPIEDAD = "Propiedad",
+  BODEGA = "Bodega",
+  ESTACIONAMIENTO = "Estacionamiento",
+  TERRENO = "Terreno",
+}

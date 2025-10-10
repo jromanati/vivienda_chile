@@ -46,7 +46,7 @@ const PropertiesClient = () => {
     return list.filter((p) => {
       if (published !== undefined && asBool(p.published) !== published) return false;
       if (featured !== undefined && asBool(p.featured) !== featured) return false;
-      if (minImages && !(Array.isArray(p.images) && p.images.length >= minImages)) return false;
+      // if (minImages && !(Array.isArray(p.images) && p.images.length >= minImages)) return false;
       return true;
     });
   }
