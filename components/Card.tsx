@@ -1,7 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
 import type { Property, Service } from "@/types"
-import { Boxes, XCircle, Package, CheckCircle } from "lucide-react"
+import { Bed, Bath, Car, Ruler, Home, Boxes, CheckCircle, XCircle } from "lucide-react"
+
 
 interface PropertyCardProps {
   property: Property
@@ -136,6 +137,16 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
     return safe + "…"
   }
 
+  const plural = (n: number, uno: string, muchos: string) => (n === 1 ? uno : muchos)
+
+  // valores con fallback (0 / false)
+  const bedrooms = Number(property.bedrooms ?? 0)
+  const bathrooms = Number(property.bathrooms ?? 0)
+  const parking   = Number(property.parking ?? 0)
+  const landArea  = Number(property.land_area ?? 0)
+  const builtArea = Number(property.built_area ?? 0)
+  const hasStorage = Boolean(property.storage)
+
   return (
     <div className="card-uniform group">
       <div className="relative h-48 overflow-hidden flex-shrink-0">
@@ -178,40 +189,58 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
           {locationLabel}
         </p>
 
-        <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
-          <span className="flex items-center">
-            <span className="mr-1">🛏️</span>
-            {property.bedrooms} Habitaciones
-          </span>
-          <span className="flex items-center">
-            <span className="mr-1">🚿</span>
-            {property.bathrooms} Baños
-          </span>
-          <span className="flex items-center">
-            <span className="mr-1">🚗</span>
-            {property.parking} Estacionamiento
-          </span>
-          <span className="flex items-center" title="Superficie terreno">
-            <span className="mr-1">📐</span>
-            {property.land_area}m²
-          </span>
-          <span className="flex items-center" title="Superficie construida">
-            <span className="mr-1">🏠</span>
-            {property.built_area}m²
-          </span>
-        </div>
-        
-          <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
-            <span className="flex items-center">
-              <Package className="h-4 w-4 mx-auto text-gray-700" aria-hidden="true" />
-              <span className="mx-2">Bodega</span>
-              {property.storage ? (
-                <CheckCircle className="h-4 w-4 mx-auto text-gray-700" aria-hidden="true" />
-              ) : (
-                <XCircle className="h-4 w-4 mx-auto text-gray-700" aria-hidden="true" />
-              )}
-            </span>
-          </div>
+        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-700">
+
+  {/* Habitaciones */}
+  <span className="inline-flex items-center gap-1.5" title="Habitaciones">
+    <Bed className="h-4 w-4" aria-hidden="true" />
+    <span className="font-medium">{bedrooms}</span>
+    <span className="text-gray-500">{plural(bedrooms, "Dormitorio", "Dormitorios")}</span>
+  </span>
+
+  {/* Baños */}
+  <span className="inline-flex items-center gap-1.5" title="Baños">
+    <Bath className="h-4 w-4" aria-hidden="true" />
+    <span className="font-medium">{bathrooms}</span>
+    <span className="text-gray-500">{plural(bathrooms, "Baño", "Baños")}</span>
+  </span>
+
+  {/* Estacionamientos */}
+  <span className="inline-flex items-center gap-1.5" title="Estacionamientos">
+    <Car className="h-4 w-4" aria-hidden="true" />
+    <span className="font-medium">{parking}</span>
+    <span className="text-gray-500">{plural(parking, "Estacionamiento", "Estacionamientos")}</span>
+  </span>
+
+  {/* Superficie terreno */}
+  <span className="inline-flex items-center gap-1.5" title="Superficie terreno">
+    <Ruler className="h-4 w-4" aria-hidden="true" />
+    <span className="font-medium">{landArea}</span>
+    <span className="text-gray-500">m²</span>
+  </span>
+
+  {/* Superficie construida */}
+  <span className="inline-flex items-center gap-1.5" title="Superficie construida">
+    <Home className="h-4 w-4" aria-hidden="true" />
+    <span className="font-medium">{builtArea}</span>
+    <span className="text-gray-500">m²</span>
+  </span>
+
+  {/* Bodega */}
+  <span
+    className={`inline-flex items-center gap-1.5 rounded-full px-2 py-1
+      ${hasStorage ? "bg-green-50 text-green-700" : "bg-gray-100 text-gray-600"}`}
+    title="Bodega"
+  >
+    <Boxes className="h-4 w-4" aria-hidden="true" />
+    <span>Bodega</span>
+    {hasStorage ? (
+      <CheckCircle className="h-4 w-4" aria-hidden="true" />
+    ) : (
+      <XCircle className="h-4 w-4" aria-hidden="true" />
+    )}
+  </span>
+</div>
 
         <div className="flex items-center justify-between mt-auto">
           <span className="text-xl font-bold text-primary">
