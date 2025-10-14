@@ -183,7 +183,7 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
                         <Bed className="h-4 w-4" aria-hidden="true" />
                         <span className="font-medium">{bedrooms}</span>
                         <span className="text-gray-500">
-                          {plural(bedrooms, "Dormitorio", "Dormitorios")}
+                          {plural(bedrooms, "Habitación", "Habitaciones")}
                         </span>
                       </span>
 
