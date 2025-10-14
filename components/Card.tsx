@@ -187,6 +187,10 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
             <span className="mr-1">🚿</span>
             {property.bathrooms} Baños
           </span>
+          <span className="flex items-center">
+            <span className="mr-1">🚗</span>
+            {property.parking} Estacionamiento
+          </span>
           <span className="flex items-center" title="Superficie terreno">
             <span className="mr-1">📐</span>
             {property.land_area}m²

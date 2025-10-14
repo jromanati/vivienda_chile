@@ -166,6 +166,10 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
                       {property.bathrooms} baños
                     </span>
                     <span className="flex items-center">
+                      <span className="mr-1">🚗</span>
+                      {property.parking} estacionamiento
+                    </span>
+                    <span className="flex items-center">
                       <span className="mr-1">📐</span>
                       {property.land_area}m²
                     </span>
