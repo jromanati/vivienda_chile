@@ -164,6 +164,12 @@ export default function PropertyDetailClient({ id }: Props) {
   ]
   const locationLabel = `${property.region}, ${property.commune}`;
 
+  const hasMedia =
+  (property.images?.length ?? 0) > 0 ||
+  (Array.isArray(property.video_url)
+    ? property.video_url.length > 0
+    : Boolean(property.video_url))
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -173,13 +179,15 @@ export default function PropertyDetailClient({ id }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
             {/* Galería */}
-            <div className="mb-8">
-              <PropertyGallery
-                images={property.images}
-                video={property.video_url || []}
-                title={property.title}
-              />
-            </div>
+            {hasMedia && (
+             <div className="mb-8">
+                <PropertyGallery
+                  images={property.images}
+                  video={property.video_url || []}
+                  title={property.title}
+                />
+              </div>
+            )}
 
             {/* Datos */}
             <div className="mb-8">

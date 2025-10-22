@@ -73,7 +73,6 @@ export class AuthService {
   static isTokenValid(): boolean {
     const token = localStorage.getItem("token")
     const expiry = localStorage.getItem("token_expiry")
-    console.log(expiry, "expiry")
     if (!token || !expiry) return false
     const now = Math.floor(Date.now() / 1000)
     const expiresAt = parseInt(expiry, 10)

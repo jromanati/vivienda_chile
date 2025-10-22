@@ -42,10 +42,8 @@ export const usePropertyFilters = (properties: Property[]) => {
       if (filters.type ==='all') {
         filters.type = '';
       }
-      console.log(filters.type)
 
       if (filters.type && property.property_type !== filters.type && filters.type !=='all') {
-        console.log("entro");
         return false
       }
 

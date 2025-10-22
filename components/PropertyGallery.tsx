@@ -41,10 +41,40 @@ const PropertyGallery = ({ images= [], video , title }: PropertyGalleryProps) =>
   const modalRef = useRef<HTMLDivElement>(null)
 
   // Unimos imágenes y videos en un solo array de medios
-  const allMedia = [
-    ...images.map((img) => ({ type: "image" as const, src: img.url })),
-    ...video ? [{ type: "video" as const, src: video }] : [],
-  ]
+
+  type MediaItem =
+    | { type: "image"; src: string }
+    | { type: "video"; src: string }
+
+  // `images` puede ser: {url:string}[] o string[]
+  // `video` puede ser: string | string[] | null | undefined
+  function buildAllMedia(
+    images?: Array<{ url: string } | string> | null,
+    video?: string | string[] | null
+  ): MediaItem[] {
+    // Normaliza imágenes
+    const imageItems: MediaItem[] = (images ?? [])
+      .map((img) => (typeof img === "string" ? img : img.url))
+      .filter(Boolean)
+      .map((src) => ({ type: "image", src }))
+
+    // Normaliza videos (acepta 1 o varios)
+    const videoArray = video == null ? [] : Array.isArray(video) ? video : [video]
+    const videoItems: MediaItem[] = videoArray
+      .filter(Boolean)
+      .map((src) => ({ type: "video", src }))
+
+    // Si hay ambos, devuelve ambos; si solo uno, devuelve ese; si ninguno, []
+    const hasImages = imageItems.length > 0
+    const hasVideos = videoItems.length > 0
+
+    if (hasImages && hasVideos) return [...imageItems, ...videoItems]
+    if (hasImages) return imageItems
+    if (hasVideos) return videoItems
+    return []
+  }
+
+  const allMedia = buildAllMedia(images, video)
 
   const currentMedia = allMedia[currentIndex]
   const modalMedia = allMedia[modalIndex]

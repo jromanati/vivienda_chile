@@ -69,7 +69,6 @@ export class PropertyService {
     const isValid = AuthService.isTokenValid()
     if (isValid) return true
     const isRefreshValid = await AuthService.isRefreshTokenValid()
-    console.log("isRefreshValid", isRefreshValid)
     if (isRefreshValid) return true
     const token = await AuthService.authenticate()
     return token !== null

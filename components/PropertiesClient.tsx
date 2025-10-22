@@ -1,7 +1,7 @@
 // components/PropertiesClient.tsx
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
 import useSWR from "swr"
 import { useSearchParams } from "next/navigation"
 import { PropertyCard } from "@/components/Card"
@@ -11,8 +11,9 @@ import PropertyControls from "@/components/PropertyControls"
 import AnimatedSection from "@/components/AnimatedSection"
 import { usePropertyFilters } from "@/hooks/usePropertyFilters"
 import { useProperties, usePropertiesUpdates } from "@/hooks/useProperties"
-// import {  properties } from "@/data/mockData"
 import type { Property } from "@/types"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+
 type CatalogPayload = {
   products: any[]
   categories: any[]
@@ -20,13 +21,16 @@ type CatalogPayload = {
 }
 type Media = { id: number; url: string; public_id: string };
 
-
 const PropertiesClient = () => {
   usePropertiesUpdates()
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [hasAppliedUrlParams, setHasAppliedUrlParams] = useState(false)
   const searchParams = useSearchParams()
   const { getProperties } = useProperties()
+
+  // --- PAGINACIÓN ---
+  const [page, setPage] = useState(1)
+  const PAGE_SIZE = 10
 
   // Normaliza booleanos que a veces vienen como "1"/"true"/1
   const asBool = (v: any) =>
@@ -50,9 +54,9 @@ const PropertiesClient = () => {
       return true;
     });
   }
+
   const fetchedProperties = useCallback(async (): Promise<Property[]> => {
     const propertiesResponse = await getProperties();
-    console.log('propertiesResponse', propertiesResponse)
     const list: Property[] = Array.isArray(propertiesResponse) ? propertiesResponse : [];
     return filterProperties(list, { published: true, minImages: 1 });
   }, [getProperties]);
@@ -85,7 +89,90 @@ const PropertiesClient = () => {
     }
   }, [searchParams, hasAppliedUrlParams, filters, setFilters])
 
-  // Mostrar loader o error
+  // Resetear a página 1 cuando cambien los resultados filtrados o el modo de vista
+  useEffect(() => {
+    setPage(1)
+  }, [filteredProperties, viewMode])
+
+  // --- Cálculos de paginación ---
+  const totalItems = filteredProperties.length
+  const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE))
+  const safePage = Math.min(Math.max(1, page), totalPages)
+
+  const pageSlice = useMemo(() => {
+    const start = (safePage - 1) * PAGE_SIZE
+    const end = start + PAGE_SIZE
+    return filteredProperties.slice(start, end)
+  }, [filteredProperties, safePage])
+
+  // Números 1 … n con ventana
+  const renderPageNumbers = () => {
+    const items: (number | string)[] = []
+    const windowSize = 2
+
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) items.push(i)
+    } else {
+      const left = Math.max(2, safePage - windowSize)
+      const right = Math.min(totalPages - 1, safePage + windowSize)
+
+      items.push(1)
+      if (left > 2) items.push("…")
+      for (let i = left; i <= right; i++) items.push(i)
+      if (right < totalPages - 1) items.push("…")
+      items.push(totalPages)
+    }
+
+    return (
+      <div className="flex items-center gap-1">
+        <button
+          type="button"
+          onClick={() => setPage(safePage - 1)}
+          className="px-3 h-10 inline-flex items-center justify-center rounded-md border bg-white hover:bg-gray-50 disabled:opacity-50"
+          disabled={safePage <= 1}
+          aria-label="Página anterior"
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </button>
+
+        {items.map((it, idx) =>
+          typeof it === "number" ? (
+            <button
+              key={`p-${it}-${idx}`}
+              type="button"
+              onClick={() => setPage(it)}
+              className={`px-3 min-w-10 h-10 inline-flex items-center justify-center rounded-md border ${
+                it === safePage
+                  ? "bg-primary text-white border-primary"
+                  : "bg-white hover:bg-gray-50"
+              }`}
+              aria-current={it === safePage ? "page" : undefined}
+              aria-label={`Ir a la página ${it}`}
+            >
+              {it}
+            </button>
+          ) : (
+            <span key={`dots-${idx}`} className="px-2 select-none">…</span>
+          )
+        )}
+
+        <button
+          type="button"
+          onClick={() => setPage(safePage + 1)}
+          className="px-3 h-10 inline-flex items-center justify-center rounded-md border bg-white hover:bg-gray-50 disabled:opacity-50"
+          disabled={safePage >= totalPages}
+          aria-label="Página siguiente"
+        >
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      </div>
+    )
+  }
+
+  const showingFrom = totalItems === 0 ? 0 : (safePage - 1) * PAGE_SIZE + 1
+  const showingTo = Math.min(safePage * PAGE_SIZE, totalItems)
+
+  // Mostrar loader
   if (isLoading) {
     return (
       <div className="text-center py-12">
@@ -94,13 +181,6 @@ const PropertiesClient = () => {
       </div>
     )
   }
-  // if (error) {
-  //   return (
-  //     <div className="text-center py-12 text-red-600">
-  //       Error cargando propiedades
-  //     </div>
-  //   )
-  // }
 
   return (
     <>
@@ -124,9 +204,20 @@ const PropertiesClient = () => {
         />
       </AnimatedSection>
 
+      {/* Header Paginación */}
+      <AnimatedSection delay={150}>
+        <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
+          <div className="text-sm text-gray-600">
+            Mostrando <span className="font-medium">{showingFrom}–{showingTo}</span> de{" "}
+            <span className="font-medium">{totalItems}</span> propiedades
+          </div>
+          {totalItems > PAGE_SIZE && renderPageNumbers()}
+        </div>
+      </AnimatedSection>
+
       {/* Results */}
       <AnimatedSection delay={200}>
-        {filteredProperties.length === 0 ? (
+        {totalItems === 0 ? (
           <div className="text-center py-16">
             <div className="text-6xl mb-4">🏠</div>
             <h3 className="text-2xl font-semibold text-gray-900 mb-2">
@@ -141,7 +232,7 @@ const PropertiesClient = () => {
           </div>
         ) : viewMode === "grid" ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProperties.map((property, index) => (
+            {pageSlice.map((property, index) => (
               <div
                 key={property.id}
                 className="opacity-0 animate-fade-in-up"
@@ -152,17 +243,20 @@ const PropertiesClient = () => {
             ))}
           </div>
         ) : (
-          <PropertyListView properties={filteredProperties} />
+          // Para vista "lista", también paginado: le pasamos SOLO el slice.
+          <PropertyListView properties={pageSlice} />
         )}
       </AnimatedSection>
 
-      {/* Load More info */}
-      {filteredProperties.length > 0 && (
-        <AnimatedSection delay={300}>
-          <div className="text-center mt-12">
-            <p className="text-gray-600 mb-4">
-              Mostrando {filteredProperties.length} de {properties.length} propiedades
-            </p>
+      {/* Footer Paginación */}
+      {totalItems > PAGE_SIZE && (
+        <AnimatedSection delay={250}>
+          <div className="flex items-center justify-between flex-wrap gap-3 mt-8">
+            <div className="text-sm text-gray-600">
+              Página <span className="font-medium">{safePage}</span> de{" "}
+              <span className="font-medium">{totalPages}</span>
+            </div>
+            {renderPageNumbers()}
           </div>
         </AnimatedSection>
       )}
