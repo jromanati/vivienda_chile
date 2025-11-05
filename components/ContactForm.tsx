@@ -13,6 +13,7 @@ interface ContactFormProps {
 const ContactForm = ({ propertyId, serviceId, title = "Contáctanos" }: ContactFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [errorMsg, setErrorMsg] = useState<string | null>(null)
 
   const {
     register,
@@ -22,19 +23,40 @@ const ContactForm = ({ propertyId, serviceId, title = "Contáctanos" }: ContactF
   } = useForm<ContactFormType>()
 
   const onSubmit = async (data: ContactFormType) => {
-    setIsSubmitting(true)
+    try {
+      setIsSubmitting(true)
+      setErrorMsg(null)
 
-    // Simular envío del formulario
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+      const payload = {
+        ...data,
+        propertyId: propertyId || null,
+        serviceId: serviceId || null,
+        pageUrl: typeof window !== "undefined" ? window.location.href : null,
+        title,
+      }
 
-    console.log("Form data:", { ...data, propertyId, serviceId })
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    reset()
+      const json = await res.json()
+      if (!json.success) {
+        console.error("Error en /api/contact:", json)
+        throw new Error(json?.error || "No se pudo enviar el mensaje.??")
+      }
 
-    // Reset success message after 5 seconds
-    setTimeout(() => setIsSubmitted(false), 5000)
+      setIsSubmitted(true)
+      reset()
+
+      // Oculta el mensaje de éxito después de 5s
+      setTimeout(() => setIsSubmitted(false), 5000)
+    } catch (err: any) {
+      setErrorMsg(err?.message || "Ocurrió un error inesperado")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (isSubmitted) {
@@ -130,6 +152,8 @@ const ContactForm = ({ propertyId, serviceId, title = "Contáctanos" }: ContactF
           />
           {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>}
         </div>
+
+        {errorMsg && <p className="text-red-600 text-sm">{errorMsg}</p>}
 
         <button
           type="submit"

@@ -197,12 +197,12 @@ export default function PropertyDetailClient({ id }: Props) {
                 </h1>
                 <span
                   className={`px-4 py-2 rounded-full text-sm font-medium ${
-                    property.status === "venta"
+                    property.operation === "Venta"
                       ? "bg-green-100 text-green-800"
                       : "bg-blue-100 text-blue-800"
                   }`}
                 >
-                  {property.status === "venta" ? "En Venta" : "En Arriendo"}
+                  {property.operation === "Venta" ? "En Venta" : "En Arriendo"}
                 </span>
               </div>
               <p className="text-gray-600 mb-4 flex items-center">
