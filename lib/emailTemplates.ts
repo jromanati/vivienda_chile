@@ -140,7 +140,7 @@ export function contactEmailHTML({
       </div>
 
       <div class="footer">
-        Enviado automáticamente desde <a href="https://maqueta-vivienda-chile.vercel.app/">viviendachile.cl</a>
+        Enviado automáticamente desde <a href="https://www.viviendachile.cl/">viviendachile.cl</a>
       </div>
     </div>
   </body>
