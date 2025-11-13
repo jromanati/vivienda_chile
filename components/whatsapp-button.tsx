@@ -10,7 +10,7 @@ export function WhatsAppButton() {
   // Número de WhatsApp (formato internacional sin + y sin espacios)
   const phoneNumber = "56967270575"
   const message =
-    "¡Hola Cristian! Me interesa conocer más sobre viviendas en arriendo. ¿Podrían ayudarme con información?"
+    "Hola! Viviendachile, me interesa su servicio!"
 
   const handleClick = () => {
     // Crear la URL de WhatsApp
@@ -23,7 +23,7 @@ export function WhatsAppButton() {
   return (
     <div className="fixed bottom-6 right-6 z-50">
       <div className="relative">
-        {/* Mensaje flotante */}
+        {/* Mensaje flotante 
         {isHovered && (
           <div className="absolute bottom-16 right-0 mb-2 mr-2 bg-white rounded-lg p-3 w-64 animate-in slide-in-from-bottom-2 duration-200">
             <div className="flex items-start justify-between">
@@ -43,11 +43,10 @@ export function WhatsAppButton() {
                 <X className="h-3 w-3" />
               </button>
             </div>
-            {/* Flecha del tooltip */}
             <div className="absolute bottom-0 right-6 transform translate-y-1/2 rotate-45 w-2 h-2 bg-white border-r border-b"></div>
           </div>
         )}
-
+        */}
         {/* Botón principal */}
         <button
           onClick={handleClick}

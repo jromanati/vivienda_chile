@@ -1,48 +1,40 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 
-  // 🔁 Redirecciones 301 desde URLs antiguas (WordPress) al nuevo sitio
+  // 🔁 Redirecciones 301 usando patrones
   async redirects() {
     return [
-      // Página de venta de propiedades
+      // Cualquier URL antigua tipo /servicio/lo-que-sea
       {
-        source: '/categoria/casa',
+        source: '/servicio/:path*',
+        destination: '/servicios',
+        permanent: true,
+      },
+
+      // Cualquier URL antigua tipo /categoria/lo-que-sea
+      {
+        source: '/categoria/:path*',
         destination: '/propiedades',
         permanent: true,
       },
 
-      // Categoría de casas
       {
-        source: '/servicio/venta-de-propiedades',
+        source: '/search',
         destination: '/propiedades',
         permanent: true,
       },
 
-      // Contacto antiguo de WordPress
+      // Contacto viejo -> contacto nuevo
       {
         source: '/contactenos',
         destination: '/contacto',
         permanent: true,
       },
 
-      // Quiénes somos (antigua ruta)
+      // Quiénes somos viejo -> nosotros nuevo
       {
-        source: '/quienes-somos',
-        destination: '/nosotros',
-        permanent: true,
-      },
-
-      // Arriendo de propiedades
-      {
-        source: '/arriendo-de-propiedades',
-        destination: '/propiedades',
-        permanent: true,
-      },
-
-      // Energías renovables / servicios antiguos
-      {
-        source: '/energeticas',
-        destination: '/servicios',
+        source: '/nosotros',
+        destination: '/quienes-somos',
         permanent: true,
       },
     ]
@@ -58,7 +50,6 @@ const nextConfig = {
     ]
   },
 
-  // ⚠️ Ignorar errores de lint y TS durante el build
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -66,7 +57,6 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
-  // 🖼️ Configuración de imágenes
   images: {
     domains: ['placeholder.svg', 'blob.v0.dev'],
     remotePatterns: [
