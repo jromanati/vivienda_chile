@@ -7,9 +7,7 @@ import { services, testimonials } from "@/data/mockData"
 import Link from "next/link"
 import Image from "next/image"
 import { Star } from "lucide-react"
-import useAutoLogin from "@/hooks/useAutoLogin";
 // ...tus demás importaciones
-// import { useProperties } from "@/hooks/useProperties";
 import { useState, useEffect, useCallback } from "react"
 import useSWR from "swr"
 import { useProperties, usePropertiesUpdates } from "@/hooks/useProperties"
@@ -18,7 +16,6 @@ import type { Property } from "@/types"
 
 export default function Home() {
   usePropertiesUpdates();
-  useAutoLogin();
   const featuredServices = services
   const { getProperties } = useProperties()
   const asBool = (v: any) =>

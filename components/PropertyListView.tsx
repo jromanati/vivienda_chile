@@ -140,7 +140,7 @@ const PropertyListView = ({ properties }: PropertyListViewProps) => {
               {/* Image */}
               <div className="relative h-64 md:h-48 md:w-80 flex-shrink-0">
                 <Image
-                  src={property.images?.[0]?.url ?? "/placeholder.svg"}
+                  src={property?.image_url? property.image_url : property?.images?.[0]?.url ? property.images[0].url : "/placeholder.svg"}
                   alt={property.title}
                   fill
                   className="object-cover"

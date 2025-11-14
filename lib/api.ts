@@ -5,6 +5,7 @@ export interface ApiResponse<T> {
   data?: T
   message?: string
   error?: string
+  status?: number
 }
 
 class ApiClient {
@@ -58,6 +59,7 @@ class ApiClient {
         return {
           success: false,
           error: data.message || `HTTP Error: ${response.status}`,
+          status: response.status
         }
       }
 

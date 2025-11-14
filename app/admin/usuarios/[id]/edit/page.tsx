@@ -29,7 +29,6 @@ export default function EditUserPage() {
     setSaving(true)
     try {
       // Aquí iría la lógica para guardar en la base de datos
-      console.log("Guardando usuario:", formData)
 
       // Simular delay de guardado
       await new Promise((resolve) => setTimeout(resolve, 1000))

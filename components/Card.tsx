@@ -114,7 +114,7 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
       maximumFractionDigits: decs,
     }).format(nRaw)
   }
-  const firstImageUrl = property.images?.[0]?.url ?? "/placeholder.svg";
+  const firstImageUrl = property?.image_url? property.image_url : property?.images?.[0]?.url ? property.images[0].url : "/placeholder.svg";
   const locationLabel = `${property.region}, ${property.commune}`;
   const areaLabel =
     property.built_area != null

@@ -30,7 +30,6 @@ export const usePropertyFilters = (properties: Property[]) => {
   const [sortBy, setSortBy] = useState("newest")
 
   const filteredAndSortedProperties = useMemo(() => {
-    console.log('properties', properties)
     const filtered = properties.filter((property) => {
       // Search filter
       if (filters.search) {

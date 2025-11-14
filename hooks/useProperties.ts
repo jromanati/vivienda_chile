@@ -16,7 +16,6 @@ export const usePropertiesUpdates = () => {
   useEffect(() => {
     // Construye URL según http/https para evitar mixed content
     const proto = location.protocol === "https:" ? "wss" : "ws"
-    console.log('proto', proto)
     // local
     // const ws = new WebSocket(`${proto}://viviendachile.localhost:8000/ws/properties/`)
     const ws = new WebSocket(`${proto}://viviendachile.sitios.softwarelabs.cl/ws/properties/`)
@@ -36,10 +35,8 @@ export const usePropertiesUpdates = () => {
       const now = Date.now()
       if (now - lastUpdateRef.current > 2000) {
         lastUpdateRef.current = now
-        console.log("🛒 Catálogo actualizado desde backend. Sincronizando…")
         await syncPropertiesToLocalStorage()
       } else {
-        console.log("⏳ Ignorando actualización repetida.")
       }
     }
 
@@ -58,7 +55,6 @@ export function useProperties() {
 
   const getProperties = async (): Promise<any[] | null> => {
     const isAuthenticated = await PropertyService.ensureAuthenticated()
-    console.log('isAuthenticated', isAuthenticated)
     setIsAuthenticating(false)
 
     if (!isAuthenticated) {

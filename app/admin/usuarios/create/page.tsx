@@ -16,7 +16,6 @@ export default function CreateUserPage() {
       // Simular creación de usuario
       await new Promise((resolve) => setTimeout(resolve, 2000))
 
-      console.log("Nuevo usuario:", data)
 
       // Redirigir a la lista de usuarios
       router.push("/admin/usuarios")

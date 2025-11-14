@@ -30,7 +30,7 @@ interface PropertyGalleryProps {
   title: string
 }
 
-const PropertyGallery = ({ images = [], video, title }: PropertyGalleryProps) => {
+const PropertyGallery = ({ main_image, images = [], video, title }: PropertyGalleryProps) => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalIndex, setModalIndex] = useState(0)
@@ -45,9 +45,15 @@ const PropertyGallery = ({ images = [], video, title }: PropertyGalleryProps) =>
     | { type: "video"; src: string }
 
   function buildAllMedia(
+    main_image?: string | string[] | null,
     images?: Array<{ url: string } | string> | null,
     video?: string | string[] | null
   ): MediaItem[] {
+    const mainImageArray = main_image == null ? [] : Array.isArray(main_image) ? main_image : [main_image]
+    const mainImageItems: MediaItem[] = mainImageArray
+      .filter(Boolean)
+      .map((src) => ({ type: "image", src }))
+
     const imageItems: MediaItem[] = (images ?? [])
       .map((img) => (typeof img === "string" ? img : img.url))
       .filter(Boolean)
@@ -58,15 +64,20 @@ const PropertyGallery = ({ images = [], video, title }: PropertyGalleryProps) =>
       .filter(Boolean)
       .map((src) => ({ type: "video", src }))
 
+    console.log(mainImageItems.length)
+    const hasMainImage = mainImageItems.length > 0
     const hasImages = imageItems.length > 0
     const hasVideos = videoItems.length > 0
+    if (hasMainImage && hasImages && hasVideos) return [...mainImageItems, ...imageItems, ...videoItems]
+    if (hasMainImage && hasImages) return [...mainImageItems, ...imageItems]
     if (hasImages && hasVideos) return [...imageItems, ...videoItems]
     if (hasImages) return imageItems
+    if (hasMainImage) return mainImageItems
     if (hasVideos) return videoItems
     return []
   }
 
-  const allMedia = buildAllMedia(images, video)
+  const allMedia = buildAllMedia(main_image, images, video)
   const total = allMedia.length
 
   // Si no hay medios, no renderizamos nada (evita errores)

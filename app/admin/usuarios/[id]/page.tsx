@@ -250,7 +250,6 @@ export default function UserDetailPage({ params }: Props) {
                 onClick={() => {
                   if (confirm(`¿Estás seguro de que quieres ${user.active ? "desactivar" : "activar"} este usuario?`)) {
                     // Aquí iría la lógica para cambiar el estado
-                    console.log(`${user.active ? "Desactivando" : "Activando"} usuario:`, user.id)
                   }
                 }}
                 className={`w-full inline-flex items-center justify-center px-4 py-2 font-medium rounded-lg transition-colors duration-200 ${

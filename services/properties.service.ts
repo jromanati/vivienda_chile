@@ -16,20 +16,25 @@ export interface ProductFilters {
 export class PropertyService {
   // Obtener todos los productos con filtros
   static async getProperties(filters: ProductFilters = {}, page = 1, limit = 20): Promise<ApiResponse<ProductResponse>> {
-    const params = new URLSearchParams({
-      page: page.toString(),
-      limit: limit.toString(),
-      ...Object.entries(filters).reduce(
-        (acc, [key, value]) => {
-          if (value !== undefined && value !== null && value !== "") {
-            acc[key] = value.toString()
-          }
-          return acc
-        },
-        {} as Record<string, string>,
-      ),
-    })
-    return apiClient.get<ProductResponse>(`properties`)
+    let response = await apiClient.get<ProductResponse>("properties")
+    if (response.status == 401){
+      response = this.reloadProperties();
+    }
+    return response
+  }
+
+  static async reloadProperties(filters: ProductFilters = {}, page = 1, limit = 20): Promise<ApiResponse<ProductResponse>> {
+    const token = await AuthService.authenticate()
+    if (token){
+      const response = await apiClient.get<ProductResponse>("properties")
+      return response
+    }
+    const response = {
+      success: false,
+      error: `HTTP Error`,
+      status: 400
+    }
+    return response
   }
 
   // Obtener producto por ID

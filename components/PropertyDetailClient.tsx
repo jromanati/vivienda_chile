@@ -182,6 +182,7 @@ export default function PropertyDetailClient({ id }: Props) {
             {hasMedia && (
              <div className="mb-8">
                 <PropertyGallery
+                  main_image={property.image_url}
                   images={property.images}
                   video={property.video_url || []}
                   title={property.title}
@@ -356,7 +357,7 @@ export default function PropertyDetailClient({ id }: Props) {
               )} */}
 
               {/* Ubicación */}
-              {property.show_map && (
+              {property.map_src && (
                 <div className="mb-8">
                   <h2 className="text-2xl font-semibold mb-6">Ubicación</h2>
                   <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6">
