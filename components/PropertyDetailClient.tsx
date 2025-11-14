@@ -339,6 +339,100 @@ export default function PropertyDetailClient({ id }: Props) {
               {/* Tabs descripción / características / etc */}
               {/* ... el resto de tu código se mantiene igual ... */}
               {/* Lo dejo tal cual lo tenías para no alargar más */}
+              <Tabs defaultValue="description" className="mb-16">
+                <TabsList className="grid w-full grid-cols-4 bg-gray-100 border">
+                  <TabsTrigger value="description" className="data-[state=active]:bg-blue-100">
+                    Descripción
+                  </TabsTrigger>
+                  {property.characteristics && (
+                    <TabsTrigger value="characteristics" className="data-[state=active]:bg-blue-100">
+                      Características
+                    </TabsTrigger>
+                  )}
+                  {property.amenities && (
+                    <TabsTrigger value="amenities" className="data-[state=active]:bg-blue-100">
+                      Amenidades
+                    </TabsTrigger>
+                  )}
+                  {property.water && (
+                    <TabsTrigger value="water" className="data-[state=active]:bg-blue-100">
+                      Agua
+                    </TabsTrigger>
+                  )}
+                </TabsList>
+
+                <TabsContent value="description" className="mt-6">
+                  <Card className="bg-gray-100">
+                    <CardContent className="p-8">
+                      <h3 className="text-2xl font-bold text-blue-900 mb-6">Descripción</h3>
+                      <p
+                        className="text-gray-900 text-lg leading-relaxed mb-6"
+                        style={{ whiteSpace: "pre-line" }}
+                      >
+                        {property.description}
+                      </p>
+
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+                {property.characteristics && (
+                  <TabsContent value="characteristics" className="mt-6">
+                    <Card className="bg-gray-100">
+                      <CardContent className="p-8">
+                        <h3 className="text-2xl font-bold text-blue-900 mb-6">Características</h3>
+                        <p className="text-gray-900 text-lg leading-relaxed mb-6">
+                          {property.characteristics}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                )}
+                {property.amenities && (
+                  <TabsContent value="amenities" className="mt-6">
+                    <Card className="bg-gray-100">
+                      <CardContent className="p-8">
+                        <h3 className="text-2xl font-bold text-blue-900 mb-6">Amenidades</h3>
+                        <p className="text-gray-900 text-lg leading-relaxed mb-6">
+                          {property.amenities}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                )}
+                {property.water && (
+                  <TabsContent value="water" className="mt-6">
+                    <Card className="bg-gray-100">
+                      <CardContent className="p-8">
+                        <h3 className="text-2xl font-bold text-blue-900 mb-6">Agua</h3>
+                        <p className="text-gray-900 text-lg leading-relaxed mb-6">
+                          {property.water}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                )}
+              </Tabs>
+              {/* Ubicación */}
+              {property.map_src && (
+                <div className="mb-8">
+                  <h2 className="text-2xl font-semibold mb-6">Ubicación</h2>
+                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6">
+                    <div className="relative h-96 bg-gray-200">
+                      <iframe
+                        src={property.map_src}
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Ubicación"
+                        className="w-full h-full"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
