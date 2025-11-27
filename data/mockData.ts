@@ -189,7 +189,7 @@ export const services: Service[] = [
     description:
       "¿Necesitas ayuda para conseguir tu crédito hipotecario? Te guiamos para encontrar el mejor financiamiento para comprar tu propiedad.",
     shortDescription: "Buscamos las mejor tasa y condiciones para ti. Te acompañamos desde el inicio hasta la firma en notaría.",
-    lastDescription: "REQUISITOS: Chilenos o extranjeros con permanencia definitiva, antigüedad laboral desde 1 año, ingresos líquidos desde $900.000.- SIN DICOM!! (castigos y dicom histórico sujeto a evaluación)",
+    lastDescription: "REQUISITOS: Chilenos o extranjeros con permanencia definitiva, antigüedad laboral desde 1 año, ingresos líquidos desde $700.000.- SIN DICOM!! (castigos y dicom histórico sujeto a evaluación)",
     icon: "/images/servicios/financiamiento_home.png?",
     features_label: "Te apoyamos en:",
     features: [
